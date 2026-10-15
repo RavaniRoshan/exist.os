@@ -1,0 +1,14 @@
+---
+import { landing } from '../content/landing';
+import SetupTerminal from './SetupTerminal.astro';
+const { hero } = landing;
+---
+
+<section class="mb-6">
+  <h1>{hero.h1}</h1>
+  {hero.leads.map((lead) => <p>{lead}</p>)}
+  <div class="mt-6">
+    <SetupTerminal />
+  </div>
+  <p class="mt-6 text-text-secondary">{hero.specStrip}</p>
+</section>
