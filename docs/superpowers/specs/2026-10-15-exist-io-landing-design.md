@@ -78,7 +78,7 @@ Full-width strip: flat accent fill (`--accent` bg, `--accent-on` text), 16px mon
 > `v0.4 shipped — Primer UI parity, autonomous PR review, capability leases.` → link to GitHub Releases.
 
 ### 4.2 Header (static, 32px at ≥1280)
-Logo mark (open item O1) · pipe-separated nav:
+Logo mark (∃ — O1 resolved) · pipe-separated nav:
 - `Platform ▾` (dropdown): For agents (MCP · Leases · Review) / For teams (PRs · Issues · Releases) / Enterprise (SSO · SCIM · IaC)
 - `Resources ▾` (dropdown): GitHub · Documentation · Roadmap · AGENTS.md
 - Direct: `Documentation` · `Roadmap`
@@ -90,10 +90,10 @@ Dropdowns: click to open, `aria-expanded`, one open at a time, Escape + outside-
 ### 4.3 Hero
 - **H1** (hanging green rule): "The self-hosted forge for the age of coding agents."
 - **Lead ¶1** — what it is: "exist.io is an open-source Git forge that runs entirely on infrastructure you control — one pure-Go binary, SQLite storage, no cloud dependency, no external services to babysit."
-- **Lead ¶2** — the differentiator: "It treats coding agents as first-class citizens: a native MCP server with 34 tools, scoped capability leases, and autonomous pull-request review. Humans and agents hold real permissions — the agent gets a lease, not the keys to the kingdom."
+- **Lead ¶2** — the differentiator: "It treats coding agents as first-class citizens: a native MCP server with 35 tools, scoped capability leases, and autonomous pull-request review. Humans and agents hold real permissions — the agent gets a lease, not the keys to the kingdom."
 - **Lead ¶3** — enterprise-ready: "OIDC and SAML single sign-on, SCIM 2.0 provisioning, OpenSSH and GPG commit verification, and official Terraform and Helm deployments — wire-compatible with the forge APIs your tooling already speaks."
 - **Terminal card** (§5 copy): title "One prompt. Your agent does the rest."; caption below card: "Works with Claude Code, Cursor, and Cline — anything that speaks MCP."
-- **Spec strip** (mono, secondary): `119 REST operations · 34 MCP tools · 25 Go packages at 100% test pass · 137 frontend tests · Git LFS · SSH :2222 · zero cgo`
+- **Spec strip** (mono, secondary): `119 REST operations · 35 MCP tools · 25 Go packages at 100% test pass · 137 frontend tests · Git LFS · SSH :2222 · zero cgo`
 
 ### 4.4 Compatibility wall
 1px wireframe grid (2 cols <768, 5 cols ≥768; reference §5c geometry), cells hold mono wordmarks:
@@ -167,7 +167,7 @@ Every number on the page must match these sources at ship time; re-verify after 
 | Claim | Source |
 |---|---|
 | 119 REST operations | README (endpoint table, "forge REST API (119 operations)"); AGENTS.md |
-| 34 MCP tools | AGENTS.md §3 + README MCP section + endpoints table. **Discrepancy:** README intro says "35 specialized tools"; majority of sources say 34. Spec uses **34**; open item O2 files a README correction upstream. |
+| 35 MCP tools | `internal/mcp/tools.go` `BuiltinTools()` — entries 1–35, verified 2026-10-15. README intro agrees ("35 specialized tools"); AGENTS.md §3 and the README endpoint table still say 34 — stale docs, upstream fix pending (O2). |
 | 25 Go packages at 100% test pass | AGENTS.md §5; ROADMAP Phase 5 |
 | 137 Vitest tests / 37 suites | AGENTS.md §5 ("37 suites, 137 tests"); ROADMAP Phase 5 |
 | `CGO_ENABLED=0`, 4 platforms | AGENTS.md invariant 3 |
@@ -196,8 +196,8 @@ Every number on the page must match these sources at ship time; re-verify after 
 
 ## 11. Open items & risks
 
-- **O1 — Brand mark:** none exists. Plan designs a 32px geometric mark in the reference's spirit (filled circle, `currentColor` cutout forming a fork/`>` glyph), delivered as inline SVG.
-- **O2 — README tool-count discrepancy (35 vs 34):** page says 34; note filed for the upstream repo.
+- **O1 — Brand mark (resolved):** the **∃ mark** (existential quantifier — "there exists"). Delivered as a 32×32 inline SVG, `currentColor`, 40×40 viewBox: a stroked ∃ glyph, optionally inside a 1px sharp-cornered square frame. Must remain legible at 16px (favicon). Used in the header (links home); not used in the announcement bar.
+- **O2 — Tool-count staleness (resolved):** code defines **35** tools (`internal/mcp/tools.go`, verified 2026-10-15); AGENTS.md and the README endpoint table say 34 — stale. The page says 35. Upstream doc fix is a separate follow-up outside this project.
 - **O3 — Prompt accuracy:** the bootstrap command and ports in §5 must stay in sync with the binary's CLI as it evolves; claims audit covers it.
 - **O4 — Green contrast:** `#2D6A57` on `#fafafa` and `#76B49A` on `#111111` verified AA for text; button pairs verified at build.
 - **Risk — claims drift:** numbers age (test counts grow). Mitigation: single content module + audit checklist + re-audit on any copy change.
