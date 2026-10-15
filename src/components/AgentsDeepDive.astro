@@ -1,0 +1,57 @@
+---
+import { landing } from '../content/landing';
+const { agents, uiMoment } = landing;
+---
+
+<section id={agents.id} class="mt-6">
+  <h2><a href={`#${agents.id}`}>{agents.title}</a></h2>
+  <p>{agents.intro}</p>
+
+  <div data-tabs class="mt-6">
+    <div class="grid grid-cols-1 divide-y border-x border-t border-hairline md:grid-cols-3 md:divide-x md:divide-y-0">
+      {agents.tabs.map((tab, i) => (
+        <button
+          type="button"
+          role="tab"
+          data-tab
+          aria-selected={i === 0 ? "true" : "false"}
+          class={`py-2 text-center font-semibold text-text-primary data-selected:bg-accent data-selected:text-accent-on`}
+        >
+          {tab.label}
+        </button>
+      ))}
+    </div>
+    <div class="border border-hairline p-3">
+      {agents.tabs.map((tab, i) => (
+        <div data-panel role="tabpanel" hidden={i !== 0}>
+          <h3>{tab.title}</h3>
+          {tab.body.map((p) => <p>{p}</p>)}
+          {tab.points && <ul class="prose">{tab.points.map((p) => <li>{p}</li>)}</ul>}
+          {tab.code && (
+            <figure class="m-0">
+              <figcaption class="px-0! mt-0! mb-1 text-text-secondary">{tab.codeLabel}</figcaption>
+              <pre class="mb-0 border border-hairline p-3 text-[15px]">{tab.code}</pre>
+            </figure>
+          )}
+          {tab.note && <p class="text-text-secondary">{tab.note}</p>}
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <figure class="mt-6 border border-hairline m-0">
+    <figcaption class="px-3! mt-0! border-b border-hairline py-2 text-text-secondary">{uiMoment.label}</figcaption>
+    <div class="p-3">
+      <h4 class="mb-2 font-bold text-text-contrast">{uiMoment.title}</h4>
+      <dl class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1">
+        {uiMoment.rows.map(([k, v]) => (
+          <>
+            <dt class="text-text-secondary">{k}</dt>
+            <dd class="text-text-contrast">{v}</dd>
+          </>
+        ))}
+      </dl>
+      <button type="button" class="btn btn-sm mt-3" disabled>{uiMoment.button}</button>
+    </div>
+  </figure>
+</section>
