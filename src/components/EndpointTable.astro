@@ -1,0 +1,17 @@
+---
+import { landing } from '../content/landing';
+const { endpoints } = landing;
+---
+
+<section class="mt-6">
+  <h3>{endpoints.title}</h3>
+  <div class="grid grid-cols-1 gap-0 md:grid-cols-2">
+    {endpoints.rows.map((row) => (
+      <div class="wall-cell h-auto! flex-wrap items-center gap-3 p-3 text-left">
+        <code class="whitespace-nowrap text-text-contrast">{row.path}</code>
+        <span class="text-text-secondary">{row.proto}</span>
+        <span class="text-text-primary">{row.desc}</span>
+      </div>
+    ))}
+  </div>
+</section>

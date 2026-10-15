@@ -1,0 +1,85 @@
+---
+import { landing } from '../content/landing';
+const { architecture } = landing;
+---
+
+<section id={architecture.id} class="mt-6">
+  <h2><a href={`#${architecture.id}`}>{architecture.title}</a></h2>
+  <p>{architecture.caption}</p>
+
+  <pre class="ascii-sm mb-6 sm:hidden" aria-label="exist.io architecture diagram, compact">{`clients · agents · automation
+  git :8080     git :2222     agents :8080/mcp
+  lfs           web ui :3000  idp oidc/saml
+  terraform     scim 2.0
+
+            |
+            v
+
+existd daemon  (pure go · zero cgo)
+  gateway · ssh · smart-http · lfs cas
+  signatures · mcp (35 tools) · rest (119)
+  federation · policy · merge
+
+            |
+            v
+
+hermetic local storage
+  sqlite wal      bare git repos     lfs cas
+  metadata        go-git v6          sha-256`}</pre>
+
+  <pre class="ascii-md mb-6 hidden sm:inline-block md:hidden" aria-label="exist.io architecture diagram, standard">{`┌──────────────────────────────────────────────┐
+│ CLIENTS · AGENTS · AUTOMATION                │
+│  git :8080    git :2222    agents /mcp      │
+│  lfs          ui :3000     idp oidc/saml    │
+│  terraform    scim 2.0                       │
+└──────────────────────────────────────────────┘
+                    │
+                    v
+┌──────────────────────────────────────────────┐
+│ EXISTD DAEMON  (pure go · zero cgo)          │
+│ gateway :8080 · ssh :2222 · smart-http       │
+│ lfs cas · signatures · mcp 35 tools          │
+│ rest 119 · federation · policy · merge       │
+└──────────────────────────────────────────────┘
+                    │
+                    v
+┌──────────────────────────────────────────────┐
+│ HERMETIC LOCAL STORAGE                       │
+│ sqlite wal · bare git repos · lfs cas        │
+└──────────────────────────────────────────────┘`}</pre>
+
+  <pre class="ascii-lg mb-6 hidden md:inline-block" aria-label="exist.io architecture diagram, detailed">{`┌────────────────────────────────────────────────────────────────┐
+│ CLIENTS · AGENTS · AUTOMATION                                  │
+│  git (smart-http :8080)   git (ssh :2222)   ai agents (mcp)   │
+│  git lfs                  web ui (:3000)    idp (oidc/saml)    │
+│  terraform / helm         scim 2.0 sync                      │
+└────────────────────────────────────────────────────────────────┘
+                              │
+                              v
+┌────────────────────────────────────────────────────────────────┐
+│ EXISTD DAEMON  (pure go · zero cgo · single binary)            │
+│ ┌──────────────┐ ┌──────────────┐ ┌──────────────────────────┐ │
+│ │ http gateway │ │ pure-go ssh  │ │ signature engine         │ │
+│ │ :8080        │ │ :2222        │ │ openssh sigspec · gpg    │ │
+│ └──────────────┘ └──────────────┘ └──────────────────────────┘ │
+│ ┌──────────────┐ ┌──────────────┐ ┌──────────────────────────┐ │
+│ │ smart-http   │ │ lfs cas      │ │ mcp json-rpc  (35 tools) │ │
+│ │ transport    │ │ engine       │ │ /mcp · /mcp/readonly     │ │
+│ └──────────────┘ └──────────────┘ └──────────────────────────┘ │
+│ ┌──────────────┐ ┌──────────────┐ ┌──────────────────────────┐ │
+│ │ rest api     │ │ federation   │ │ policy engine            │ │
+│ │ /v1/origin   │ │ scim · sso   │ │ merge · rulesets · cidr  │ │
+│ │ 119 ops      │ │              │ │                          │ │
+│ └──────────────┘ └──────────────┘ └──────────────────────────┘ │
+└────────────────────────────────────────────────────────────────┘
+                              │
+                              v
+┌────────────────────────────────────────────────────────────────┐
+│ HERMETIC LOCAL STORAGE                                         │
+│ ┌──────────────────┐ ┌──────────────────┐ ┌──────────────────┐ │
+│ │ sqlite wal       │ │ bare git repos   │ │ lfs content-     │ │
+│ │ metadata · grants│ │ go-git v6        │ │ addressable      │ │
+│ │ prs · rules · sso│ │ packfiles · refs │ │ sha-256 cas      │ │
+│ └──────────────────┘ └──────────────────┘ └──────────────────┘ │
+└────────────────────────────────────────────────────────────────┘`}</pre>
+</section>
