@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import AnnouncementBar from '../components/AnnouncementBar.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import Hero from '../components/Hero.astro';
+import CompatibilityWall from '../components/CompatibilityWall.astro';
 import { initCopy } from '../scripts/copy';
 import { initNav } from '../scripts/nav';
 import { initTheme } from '../scripts/theme';
@@ -14,6 +15,8 @@ import '../styles/global.css';
   <SiteHeader />
   <main class="container mx-auto mb-6 max-w-7xl px-3 sm:px-5 lg:px-12">
     <Hero />
+    <hr class="dot-fill" />
+    <CompatibilityWall />
   </main>
 </BaseLayout>
 

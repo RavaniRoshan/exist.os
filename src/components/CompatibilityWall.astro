@@ -1,0 +1,12 @@
+---
+import { landing } from '../content/landing';
+const { items } = landing.wall;
+---
+
+<section class="mb-6" aria-label="Protocol and tool compatibility">
+  <div class="grid grid-cols-2 items-center justify-center md:grid-cols-5">
+    {items.map((item) => (
+      <div class="wall-cell font-semibold">{item}</div>
+    ))}
+  </div>
+</section>
