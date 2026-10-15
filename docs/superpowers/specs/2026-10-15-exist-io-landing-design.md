@@ -48,7 +48,7 @@ Adopted wholesale from the reference (§0–§9), then adapted as below.
 ### 3.2 Adaptations (deviations, deliberate)
 
 1. **Dark-first.** The reference builds light-first with a dark variant. We invert: dark canvas (`#111111`) is the default, light (`#fafafa`) via a toggle persisted in `localStorage`. Same component logic both themes.
-2. **Accent = brand green.** The repo's docs site establishes `#2D6A57` (light) / `#76B49A` (dark). Green replaces orange `#f35815` in every structural slot: H1 hanging rule, `.btn` fill, `.btn-outline` border, dropdown panel borders, group headings, hover states. Prose links use the accent instead of `#0b6ec5`.
+2. **Accent = off-blue.** A desaturated steel blue — `#7BA7C9` (dark default) / `#2E5F8A` (light) — replaces the reference's orange `#f35815` in every structural slot: H1 hanging rule, `.btn` fill, `.btn-outline` border, dropdown panel borders, group headings, hover states, focus rings. Prose links use the accent instead of `#0b6ec5`. (Superseded the docs-site green on 2026-10-15 for a calmer, more infrastructure-appropriate tone.)
 3. **Hero visual = terminal card.** PlanetScale's hero visual slot is its customer logo wall; ours is a terminal-styled card containing the copy-ready agent-setup prompt (§5). One new component, built from the existing vocabulary: 1px border, no shadow, no radius, header row (dots + title + copy button), body with accent-tinted command spans.
 4. **Compatibility wall replaces the logo wall.** The 80-cell customer wall becomes a wireframe grid of the protocols and tools exist.io speaks: official brand SVGs (Simple Icons CC0-1.0, plus the GnuPG mark from Wikimedia Commons), converted to monochrome `currentColor` so they theme with the site — no fake logos. Protocols without canonical marks (SSH, OpenSSH, SAML, SCIM) are set as mono text wordmarks. Regenerate with `node scripts/fetch-logos.mjs`.
 5. **Architecture diagram is exist.io's own.** The reference's VTGate diagram slots become an ASCII rendering of exist.io's architecture (converted from the README mermaid diagram): Clients → existd daemon → Hermetic storage.
@@ -66,7 +66,7 @@ Adopted wholesale from the reference (§0–§9), then adapted as below.
 | `--text-contrast` | `#ffffff` | `#000000` | H1, hover |
 | `--text-decoration` | `#616161` | `#c1c1c1` | pipe separators |
 | `--border` | `#414141` | `#414141` | all 1px borders |
-| `--accent` | `#76B49A` | `#2D6A57` | H1 rule, buttons, focus |
+| `--accent` | `#7BA7C9` | `#2E5F8A` | H1 rule, buttons, focus |
 | `--code-bg` | `#1a1a1a` | `#ebebeb` | inline `code`, chips |
 | `--accent-on` | `#111111` | `#fafafa` | text on accent fills |
 
@@ -91,7 +91,7 @@ Logo mark (∃ — O1 resolved) · pipe-separated nav:
 Dropdowns: click to open, `aria-expanded`, one open at a time, Escape + outside-click close.
 
 ### 4.3 Hero
-- **H1** (hanging green rule, 40px ≥640px / 32px mobile — the page's single type-scale violation): "The self-hosted forge for the age of coding agents."
+- **H1** (hanging off-blue rule, 40px ≥640px / 32px mobile — the page's single type-scale violation): "The self-hosted forge for the age of coding agents."
 - **Lead ¶1** — what it is: "exist.io is an open-source Git forge that runs entirely on infrastructure you control — one pure-Go binary, SQLite storage, no cloud dependency, no external services to babysit."
 - **Lead ¶2** — the differentiator: "It treats coding agents as first-class citizens: a native MCP server with 35 tools, scoped capability leases, and autonomous pull-request review. Humans and agents hold real permissions — the agent gets a lease, not the keys to the kingdom."
 - **Lead ¶3** — enterprise-ready: "OIDC and SAML single sign-on, SCIM 2.0 provisioning, OpenSSH and GPG commit verification, and official Terraform and Helm deployments — wire-compatible with the forge APIs your tooling already speaks."
@@ -201,7 +201,7 @@ Every number on the page must match these sources at ship time; re-verify after 
 - **O1 — Brand mark (resolved):** the **∃ mark** (existential quantifier — "there exists"). Delivered as a 32×32 inline SVG, `currentColor`, 40×40 viewBox: a stroked ∃ glyph, optionally inside a 1px sharp-cornered square frame. Must remain legible at 16px (favicon). Used in the header (links home); not used in the announcement bar.
 - **O2 — Tool-count staleness (resolved):** code defines **35** tools (`internal/mcp/tools.go`, verified 2026-10-15); AGENTS.md and the README endpoint table say 34 — stale. The page says 35. Upstream doc fix is a separate follow-up outside this project.
 - **O3 — Prompt accuracy:** the bootstrap command and ports in §5 must stay in sync with the binary's CLI as it evolves; claims audit covers it.
-- **O4 — Green contrast:** `#2D6A57` on `#fafafa` and `#76B49A` on `#111111` verified AA for text; button pairs verified at build.
+- **O4 — Accent contrast:** `#2E5F8A` on `#fafafa` and `#7BA7C9` on `#111111` verified AA for text; button pairs verified at build.
 - **Risk — claims drift:** numbers age (test counts grow). Mitigation: single content module + audit checklist + re-audit on any copy change.
 - **Risk — tone:** the declarative voice can tip into arrogance; copy review pass in the plan checks every sentence against "would an engineer believe this?"
 
