@@ -125,8 +125,6 @@
   }
 
   .wall-cell { margin: -0.5px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-hairline); height: 128px; }
-
-  [data-dropdown][data-open] [data-dropdown-panel] { display: block; }
 }
 
 @media (prefers-reduced-motion: reduce) {
