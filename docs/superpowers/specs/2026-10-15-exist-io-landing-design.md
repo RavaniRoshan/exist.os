@@ -50,7 +50,7 @@ Adopted wholesale from the reference (§0–§9), then adapted as below.
 1. **Dark-first.** The reference builds light-first with a dark variant. We invert: dark canvas (`#111111`) is the default, light (`#fafafa`) via a toggle persisted in `localStorage`. Same component logic both themes.
 2. **Accent = brand green.** The repo's docs site establishes `#2D6A57` (light) / `#76B49A` (dark). Green replaces orange `#f35815` in every structural slot: H1 hanging rule, `.btn` fill, `.btn-outline` border, dropdown panel borders, group headings, hover states. Prose links use the accent instead of `#0b6ec5`.
 3. **Hero visual = terminal card.** PlanetScale's hero visual slot is its customer logo wall; ours is a terminal-styled card containing the copy-ready agent-setup prompt (§5). One new component, built from the existing vocabulary: 1px border, no shadow, no radius, header row (dots + title + copy button), body with accent-tinted command spans.
-4. **Compatibility wall replaces the logo wall.** The 80-cell customer wall becomes a wireframe grid of the protocols and tools exist.io speaks — text wordmarks in mono, no fake logos: Git, SSH, OpenSSH, GPG, Git LFS, SQLite, OIDC, SAML, SCIM 2.0, MCP, Terraform, Helm, Kubernetes, Prometheus.
+4. **Compatibility wall replaces the logo wall.** The 80-cell customer wall becomes a wireframe grid of the protocols and tools exist.io speaks: official brand SVGs (Simple Icons CC0-1.0, plus the GnuPG mark from Wikimedia Commons), converted to monochrome `currentColor` so they theme with the site — no fake logos. Protocols without canonical marks (SSH, OpenSSH, SAML, SCIM) are set as mono text wordmarks. Regenerate with `node scripts/fetch-logos.mjs`.
 5. **Architecture diagram is exist.io's own.** The reference's VTGate diagram slots become an ASCII rendering of exist.io's architecture (converted from the README mermaid diagram): Clients → existd daemon → Hermetic storage.
 
 ### 3.3 Token layer (dark default shown; light in parentheses)
@@ -96,8 +96,7 @@ Dropdowns: click to open, `aria-expanded`, one open at a time, Escape + outside-
 - **Spec strip** (mono, secondary): `119 REST operations · 35 MCP tools · 25 Go packages at 100% test pass · 137 frontend tests · Git LFS · SSH :2222 · zero cgo`
 
 ### 4.4 Compatibility wall
-1px wireframe grid (2 cols <768, 5 cols ≥768; reference §5c geometry), cells hold mono wordmarks:
-Git · SSH · OpenSSH · GPG · Git LFS · SQLite · OIDC · SAML · SCIM 2.0 · MCP · Terraform · Helm · Kubernetes · Prometheus
+1px wireframe grid (2 cols <768, 5 cols ≥768; reference §5c geometry). Cells hold official brand SVGs, monochrome `currentColor`, height 40px: Git · GPG (GnuPG mark) · Git LFS · SQLite · OIDC · MCP · Terraform · Helm · Kubernetes · Prometheus. Text wordmarks for protocols without canonical marks: SSH · OpenSSH · SAML · SCIM 2.0. Sources live in `src/assets/logos/` (Simple Icons CC0-1.0; GnuPG from Wikimedia Commons); monochrome conversion — brand colors to `currentColor`, white knockouts to `var(--canvas)` — is reproducible via `scripts/fetch-logos.mjs`.
 
 ### 4.5 Capability bands
 Four sections, each: H2 + one intro sentence + wireframe cell grid (name / one-liner / mono detail). Dot-fill rules between.

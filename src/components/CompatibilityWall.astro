@@ -1,12 +1,42 @@
 ---
-import { landing } from '../content/landing';
+import { landing } from "../content/landing";
+import git from "../assets/logos/git.svg?raw";
+import gitlfs from "../assets/logos/gitlfs.svg?raw";
+import gnupg from "../assets/logos/gnupg.svg?raw";
+import helm from "../assets/logos/helm.svg?raw";
+import kubernetes from "../assets/logos/kubernetes.svg?raw";
+import modelcontextprotocol from "../assets/logos/modelcontextprotocol.svg?raw";
+import openid from "../assets/logos/openid.svg?raw";
+import prometheus from "../assets/logos/prometheus.svg?raw";
+import sqlite from "../assets/logos/sqlite.svg?raw";
+import terraform from "../assets/logos/terraform.svg?raw";
+
+const logos: Record<string, string> = {
+  git,
+  gitlfs,
+  gnupg,
+  helm,
+  kubernetes,
+  modelcontextprotocol,
+  openid,
+  prometheus,
+  sqlite,
+  terraform,
+};
+
 const { items } = landing.wall;
 ---
 
 <section class="mb-6" aria-label="Protocol and tool compatibility">
   <div class="grid grid-cols-2 items-center justify-center md:grid-cols-5">
     {items.map((item) => (
-      <div class="wall-cell font-semibold">{item}</div>
+      <div class="wall-cell" title={item.name} aria-label={item.name}>
+        {item.logo ? (
+          <span class="block h-10 text-text-primary [&>svg]:h-full [&>svg]:w-auto" set:html={logos[item.logo]} />
+        ) : (
+          <span class="font-semibold">{item.name}</span>
+        )}
+      </div>
     ))}
   </div>
 </section>
