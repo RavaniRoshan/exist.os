@@ -1,0 +1,132 @@
+@import "tailwindcss";
+
+@layer base {
+  :root,
+  [data-theme="dark"] {
+    --canvas: #111111;
+    --text-primary: #ebebeb;
+    --text-secondary: #a1a1a1;
+    --text-contrast: #ffffff;
+    --text-decoration: #616161;
+    --border-hairline: #414141;
+    --accent: #76b49a;
+    --accent-on: #111111;
+    --code-bg: #1a1a1a;
+  }
+  [data-theme="light"] {
+    --canvas: #fafafa;
+    --text-primary: #414141;
+    --text-secondary: #737373;
+    --text-contrast: #000000;
+    --text-decoration: #c1c1c1;
+    --border-hairline: #414141;
+    --accent: #2d6a57;
+    --accent-on: #fafafa;
+    --code-bg: #ebebeb;
+  }
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-contrast: var(--text-contrast);
+  --color-text-decoration: var(--text-decoration);
+  --color-hairline: var(--border-hairline);
+  --color-accent: var(--accent);
+  --color-accent-on: var(--accent-on);
+  --color-code-bg: var(--code-bg);
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+@layer base {
+  html { background: var(--canvas); font-size: 16px; }
+  body {
+    background: transparent;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 16px;
+    line-height: 24px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1 {
+    margin: 0 0 24px -16px;
+    padding-left: 16px;
+    border-left: 2px solid var(--accent);
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 700;
+    color: var(--text-contrast);
+    text-indent: -2px;
+  }
+  h2 { font-size: 16px; font-weight: 700; margin: 0 0 24px; color: var(--text-contrast); }
+  h2 a, h3 a { color: inherit; text-decoration-line: none; }
+  h3 { font-size: inherit; font-weight: 700; margin: 0 0 8px; color: var(--text-contrast); }
+  h4, h5, h6 { font-size: inherit; font-weight: inherit; margin: 0 0 8px; color: var(--text-contrast); }
+  p { margin: 0 0 24px; }
+  blockquote { padding-left: 12px; border-left: 2px solid var(--text-decoration); margin: 16px 0; font-weight: 400; }
+  figcaption { color: var(--text-secondary); padding-inline: 24px; margin-top: 16px; }
+  code { font-size: 15px; background: var(--code-bg); color: var(--text-contrast); padding: 0 4px; }
+  pre { font-family: var(--font-mono); font-size: 16px; line-height: 20px; background: var(--canvas); color: var(--text-contrast); font-weight: 500; padding: 16px; margin: 0 0 24px; overflow-x: auto; }
+  pre.ascii-sm { font-size: 12px; line-height: 16px; }
+  @media (min-width: 1024px) {
+    pre.ascii-sm { font-size: 16px; line-height: 20px; }
+    pre.ascii-md, pre.ascii-lg { font-size: 16px; line-height: 20px; }
+  }
+  a { color: inherit; text-decoration-line: inherit; }
+  main p a { color: var(--accent); text-decoration-line: none; }
+  ul.prose { list-style-type: "* "; padding-left: 16px; margin: 0 0 24px 16px; display: flex; flex-direction: column; gap: 8px; }
+}
+
+@layer components {
+  .btn {
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    white-space: nowrap;
+    background: var(--accent);
+    color: var(--accent-on);
+    padding-inline: 16px;
+    font-weight: 600;
+    line-height: 1;
+    border: 0;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 16px;
+  }
+  .btn:focus-visible { outline: 2px solid transparent; outline-offset: 2px; box-shadow: 0 0 0 1px var(--accent); }
+  .btn-outline { border: 2px solid var(--accent); color: var(--text-primary); background: transparent; }
+  .btn-sm { height: 32px; padding-inline: 4px; }
+
+  .dashed-box {
+    background-image:
+      repeating-linear-gradient(0deg, var(--text-primary), var(--text-primary) 12px, transparent 12px, transparent 16px),
+      repeating-linear-gradient(90deg, var(--text-primary), var(--text-primary) 12px, transparent 12px, transparent 16px),
+      repeating-linear-gradient(180deg, var(--text-primary), var(--text-primary) 12px, transparent 12px, transparent 16px),
+      repeating-linear-gradient(270deg, var(--text-primary), var(--text-primary) 12px, transparent 12px, transparent 16px);
+    background-position: 0 0, 0 0, 100% 0, 0 100%;
+    background-repeat: no-repeat;
+    background-size: 1px 100%, 100% 1px, 1px 100%, 100% 1px;
+  }
+
+  hr.dot-fill { width: 100%; height: 16px; border-style: none; line-height: 1rem; position: relative; overflow: hidden; margin: 24px 0; }
+  hr.dot-fill::before {
+    content: "...................................................................................................................";
+    white-space: nowrap;
+    position: absolute;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    color: var(--text-decoration);
+  }
+
+  .wall-cell { margin: -0.5px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-hairline); height: 128px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
