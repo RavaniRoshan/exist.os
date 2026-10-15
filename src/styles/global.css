@@ -78,6 +78,10 @@
   a { color: inherit; text-decoration-line: inherit; }
   main p a { color: var(--accent); text-decoration-line: none; }
   ul.prose { list-style-type: "* "; padding-left: 16px; margin: 0 0 24px 16px; display: flex; flex-direction: column; gap: 8px; }
+
+  /* the single deliberate type-scale violation: the hero headline */
+  .h1-hero { font-size: 32px; line-height: 36px; }
+  @media (min-width: 640px) { .h1-hero { font-size: 40px; line-height: 44px; } }
 }
 
 @layer components {
@@ -125,6 +129,37 @@
   }
 
   .wall-cell { margin: -0.5px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-hairline); height: 128px; }
+
+  /* signature: box-drawing corner brackets (diagonal TL+BR) on key panels */
+  .bracket-frame { position: relative; }
+  .bracket-frame::before,
+  .bracket-frame::after {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 12px;
+  }
+  .bracket-frame::before {
+    top: -5px;
+    left: -5px;
+    border-top: 1px solid var(--border-hairline);
+    border-left: 1px solid var(--border-hairline);
+  }
+  .bracket-frame::after {
+    bottom: -5px;
+    right: -5px;
+    border-bottom: 1px solid var(--border-hairline);
+    border-right: 1px solid var(--border-hairline);
+  }
+
+  /* signature: terminal cursor */
+  .cursor-blink {
+    display: inline-block;
+    animation: cursor-blink 1.2s steps(2, start) infinite;
+  }
+  @keyframes cursor-blink {
+    to { visibility: hidden; }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

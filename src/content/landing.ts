@@ -52,6 +52,8 @@ export const landing = {
 
   terminal: {
     title: "One prompt. Your agent does the rest.",
+    pathLabel: "~/exist.io $",
+    status: "agent — ready",
     prompt: `Bootstrap a self-hosted exist.io forge on this machine:
 1. Download the latest existd release binary for this platform.
 2. Run: existd bootstrap --email <you@example.com> --namespace <org>
@@ -253,14 +255,14 @@ Confirm each step before running the next, and tell me when it's done.`,
     id: "quickstart",
     title: "Deploy in 5 minutes",
     intro: "Three commands to a running forge — or skip the manual path and hand the prompt at the top of this page to your agent.",
-    commands: `go build -o bin/existd ./cmd/existd
+    commands: `$ go build -o bin/existd ./cmd/existd
 
-./bin/existd bootstrap \\
-  --email admin@corp.exist.io \\
-  --namespace acme \\
-  --data-dir ./data
+$ ./bin/existd bootstrap \\
+    --email admin@corp.exist.io \\
+    --namespace acme \\
+    --data-dir ./data
 
-./bin/existd`,
+$ ./bin/existd`,
     alt: "Prefer containers? docker compose -f docker-compose.enterprise.yml up -d runs the full stack.",
     primaryLabel: "Copy prompt",
     starLabel: "★ Star on GitHub",

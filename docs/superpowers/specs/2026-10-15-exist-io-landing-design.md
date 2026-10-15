@@ -52,6 +52,9 @@ Adopted wholesale from the reference (§0–§9), then adapted as below.
 3. **Hero visual = terminal card.** PlanetScale's hero visual slot is its customer logo wall; ours is a terminal-styled card containing the copy-ready agent-setup prompt (§5). One new component, built from the existing vocabulary: 1px border, no shadow, no radius, header row (dots + title + copy button), body with accent-tinted command spans.
 4. **Compatibility wall replaces the logo wall.** The 80-cell customer wall becomes a wireframe grid of the protocols and tools exist.io speaks: official brand SVGs (Simple Icons CC0-1.0, plus the GnuPG mark from Wikimedia Commons), converted to monochrome `currentColor` so they theme with the site — no fake logos. Protocols without canonical marks (SSH, OpenSSH, SAML, SCIM) are set as mono text wordmarks. Regenerate with `node scripts/fetch-logos.mjs`.
 5. **Architecture diagram is exist.io's own.** The reference's VTGate diagram slots become an ASCII rendering of exist.io's architecture (converted from the README mermaid diagram): Clients → existd daemon → Hermetic storage.
+6. **Terminal identity.** The page reads as a live agent session, which the reference deliberately is not. The hero prompt card is a shell — `~/exist.io $` header, status bar `agent — ready ▮` with a blinking cursor (frozen under `prefers-reduced-motion`) — capability cells carry `›` prefixes, quickstart commands are `$ `-prefixed, and the ASCII diagram ends with a cursor.
+7. **Corner-bracket panels.** Key panels (terminal card, tab panel, UI-moment, quickstart block) wear diagonal box-drawing corner brackets — the diagram's character family applied to page furniture.
+8. **One type-scale violation.** The hero H1 renders at 32px (40px ≥640px). The reference's loudest rule — 16px everywhere, hierarchy by weight alone — is broken exactly once, as the page's single typographic moment. Every other element stays 16px.
 
 ### 3.3 Token layer (dark default shown; light in parentheses)
 
@@ -88,7 +91,7 @@ Logo mark (∃ — O1 resolved) · pipe-separated nav:
 Dropdowns: click to open, `aria-expanded`, one open at a time, Escape + outside-click close.
 
 ### 4.3 Hero
-- **H1** (hanging green rule): "The self-hosted forge for the age of coding agents."
+- **H1** (hanging green rule, 40px ≥640px / 32px mobile — the page's single type-scale violation): "The self-hosted forge for the age of coding agents."
 - **Lead ¶1** — what it is: "exist.io is an open-source Git forge that runs entirely on infrastructure you control — one pure-Go binary, SQLite storage, no cloud dependency, no external services to babysit."
 - **Lead ¶2** — the differentiator: "It treats coding agents as first-class citizens: a native MCP server with 35 tools, scoped capability leases, and autonomous pull-request review. Humans and agents hold real permissions — the agent gets a lease, not the keys to the kingdom."
 - **Lead ¶3** — enterprise-ready: "OIDC and SAML single sign-on, SCIM 2.0 provisioning, OpenSSH and GPG commit verification, and official Terraform and Helm deployments — wire-compatible with the forge APIs your tooling already speaks."

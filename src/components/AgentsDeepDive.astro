@@ -21,7 +21,7 @@ const { agents, uiMoment } = landing;
         </button>
       ))}
     </div>
-    <div class="border border-hairline p-3">
+    <div class="bracket-frame border border-hairline p-3">
       {agents.tabs.map((tab, i) => (
         <div data-panel role="tabpanel" hidden={i !== 0}>
           <h3>{tab.title}</h3>
@@ -39,7 +39,7 @@ const { agents, uiMoment } = landing;
     </div>
   </div>
 
-  <figure class="mt-6 border border-hairline m-0">
+  <figure class="bracket-frame mt-6 border border-hairline m-0">
     <figcaption class="px-3! mt-0! border-b border-hairline py-2 text-text-secondary">{uiMoment.label}</figcaption>
     <div class="p-3">
       <h4 class="mb-2 font-bold text-text-contrast">{uiMoment.title}</h4>
