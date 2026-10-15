@@ -1,0 +1,17 @@
+---
+import { landing } from '../content/landing';
+const { proof } = landing;
+---
+
+<section id={proof.id} class="mt-6">
+  <h2><a href={`#${proof.id}`}>{proof.title}</a></h2>
+  <ul class="prose">
+    {proof.points.map((p) => <li>{p}</li>)}
+  </ul>
+  <hr class="dot-fill" />
+  <h3>{proof.roadmapTitle}</h3>
+  <ul class="prose">
+    {proof.shipped.map((p) => <li>{p}</li>)}
+    {proof.next.map((p) => <li>{p}</li>)}
+  </ul>
+</section>
