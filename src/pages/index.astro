@@ -1,15 +1,23 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import AnnouncementBar from '../components/AnnouncementBar.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import { initNav } from '../scripts/nav';
+import { initTheme } from '../scripts/theme';
 import '../styles/global.css';
 ---
+
 <BaseLayout title="exist.io — probe" description="probe">
+  <AnnouncementBar />
+  <SiteHeader />
   <main class="container mx-auto mb-6 max-w-7xl px-3 sm:px-5 lg:px-12">
     <h1>hanging rule probe</h1>
-    <p>body probe <a href="#">link probe</a> <code>code probe</code></p>
-    <hr class="dot-fill" />
-    <div class="dashed-box p-3 mb-6">dashed probe</div>
-    <button class="btn">Button probe</button>
-    <button class="btn btn-outline ml-1">Outline probe</button>
-    <div class="grid grid-cols-2 md:grid-cols-5"><div class="wall-cell">cell</div><div class="wall-cell">cell</div></div>
   </main>
 </BaseLayout>
+
+<script>
+  import { initNav } from '../scripts/nav';
+  import { initTheme } from '../scripts/theme';
+  initNav();
+  initTheme();
+</script>

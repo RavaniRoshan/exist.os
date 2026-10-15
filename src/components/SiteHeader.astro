@@ -1,0 +1,87 @@
+---
+import { landing } from '../content/landing';
+const { nav } = landing;
+
+const dropdowns = [
+  { id: "platform", label: nav.platformLabel, items: nav.platform },
+  { id: "resources", label: nav.resourcesLabel, items: nav.resources },
+];
+
+const mark = "M6 12h28 M6 12v9c0 8 28 8 28 0v-9";
+---
+
+<header class="relative mt-8 mb-12 bg-canvas">
+  <div class="container mx-auto flex max-w-7xl flex-col gap-y-3 px-3 sm:px-5 lg:px-12">
+    <div class="grid w-full grid-cols-[auto_1fr] items-center gap-3">
+      <div class="flex items-center gap-3">
+        <a aria-label="Go to homepage" href="/" class="hidden h-8 w-8 text-text-primary lg:block">
+          <svg width="32" height="32" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+            <path d={mark} stroke="currentColor" stroke-width="4" />
+          </svg>
+        </a>
+        <nav aria-label="Main" class="hidden items-center lg:flex">
+          <ul class="flex flex-wrap items-center gap-x-1">
+            {dropdowns.map((d, i) => (
+              <li class="flex items-center">
+                {i > 0 && <span class="text-text-decoration" role="presentation">|</span>}
+                <div class="relative" data-dropdown>
+                  <button
+                    type="button"
+                    id={`${d.id}-trigger`}
+                    data-dropdown-trigger
+                    aria-expanded="false"
+                    class="font-semibold text-text-primary hover:text-text-contrast whitespace-nowrap"
+                  >
+                    {d.label}<span class="ml-1 inline-block">▾</span>
+                  </button>
+                  <div
+                    data-dropdown-panel
+                    hidden
+                    aria-labelledby={`${d.id}-trigger`}
+                    class="absolute left-0 top-8 z-10 w-72 border border-accent bg-canvas p-3"
+                  >
+                    <ul class="flex flex-col gap-1">
+                      {d.items.map((item) => (
+                        <li>
+                          <a class="block px-2 py-1 hover:bg-code-bg hover:text-text-contrast" href={item.href}>{item.label}</a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </li>
+            ))}
+            <li class="text-text-decoration" role="presentation">|</li>
+            <li><a class="font-semibold text-text-primary hover:text-text-contrast" href={nav.docsHref}>{nav.docsLabel}</a></li>
+          </ul>
+        </nav>
+        <a aria-label="Go to homepage" href="/" class="h-8 w-8 text-text-primary lg:hidden">
+          <svg width="32" height="32" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+            <path d={mark} stroke="currentColor" stroke-width="4" />
+          </svg>
+        </a>
+      </div>
+      <div class="col-start-2 flex shrink-0 items-center justify-end gap-1.5">
+        <button type="button" data-theme-toggle class="font-semibold text-text-primary hover:text-accent">Light</button>
+        <span class="text-text-decoration" role="presentation">|</span>
+        <a class="font-semibold text-text-primary hover:text-accent" href={nav.starHref}>{nav.starLabel}</a>
+        <a class="btn btn-sm ml-1" href={nav.deployHref}>{nav.deployLabel}</a>
+      </div>
+    </div>
+
+    <details class="lg:hidden">
+      <summary class="cursor-pointer font-semibold">Navigation</summary>
+      <nav aria-label="Mobile" class="dashed-box mt-1 p-3">
+        <ul class="flex flex-wrap items-center gap-x-1">
+          {nav.platform.map((item) => (
+            <li><a class="font-semibold hover:text-text-contrast" href={item.href}>{item.label}</a></li>
+          ))}
+          <li class="text-text-decoration" role="presentation">|</li>
+          {nav.resources.map((item) => (
+            <li><a class="font-semibold hover:text-text-contrast" href={item.href}>{item.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+    </details>
+  </div>
+</header>
