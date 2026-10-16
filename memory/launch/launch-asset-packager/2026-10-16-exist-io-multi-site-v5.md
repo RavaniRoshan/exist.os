@@ -41,3 +41,5 @@
 - Screenshots: complete (7)
 - OG card: complete (1)
 - Demo GIF/MP4: missing
+
+**Demo (generated):** `public/launch/demo.mp4`, `public/launch/demo.gif` (30–36s style, 5 frames captured; GIF optimized; MP4 via OpenCV)
