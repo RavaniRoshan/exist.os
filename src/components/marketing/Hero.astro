@@ -1,0 +1,45 @@
+---
+import { marketing } from "../../content/marketing";
+const { hero } = marketing;
+const base = import.meta.env.BASE_URL;
+---
+
+<section class="relative overflow-hidden pt-16 pb-20 md:pt-24 md:pb-28">
+  <div class="hero-glow pointer-events-none absolute inset-0 -z-10"></div>
+  <div class="grid-fade pointer-events-none absolute inset-x-0 top-0 -z-10 h-[540px] opacity-40"></div>
+
+  <div class="shell">
+    <a class="pill" href={hero.eyebrowHref}>
+      <span class="size-1.5 rounded-full bg-signal"></span>
+      {hero.eyebrow}
+      <span class="text-fg-3">→</span>
+    </a>
+
+    <h1 class="mt-7 max-w-4xl text-[2.75rem] font-semibold leading-[1.02] sm:text-6xl md:text-7xl">
+      {hero.titleLead}<br /><span class="text-signal">{hero.titleAccent}</span>
+    </h1>
+
+    <p class="mt-6 max-w-2xl text-base leading-relaxed text-fg-2 sm:text-lg">
+      {hero.body}
+    </p>
+
+    <div class="mt-8 flex flex-wrap items-center gap-3">
+      <a class="btn btn-primary" href={hero.primary.href}>{hero.primary.label}</a>
+      <a class="btn btn-ghost" href={hero.secondary.href}>{hero.secondary.label}</a>
+      <span class="ml-1 font-mono text-xs text-fg-3">{hero.note}</span>
+    </div>
+
+    <div class="mt-14 md:mt-20">
+      <div class="shot">
+        <img
+          src={`${base}/forge-pr.png`}
+          alt={hero.screenshotAlt}
+          width="1280"
+          height="800"
+          class="w-full rounded-xl"
+          loading="eager"
+        />
+      </div>
+    </div>
+  </div>
+</section>

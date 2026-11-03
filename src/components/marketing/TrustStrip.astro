@@ -1,0 +1,15 @@
+---
+import { marketing } from "../../content/marketing";
+const { trust } = marketing;
+---
+
+<section class="border-y border-white/10 py-9">
+  <div class="shell">
+    <p class="eyebrow text-center">{trust.label}</p>
+    <div class="mt-6 flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
+      {trust.items.map((item) => (
+        <span class="font-mono text-xs text-fg-3">{item}</span>
+      ))}
+    </div>
+  </div>
+</section>

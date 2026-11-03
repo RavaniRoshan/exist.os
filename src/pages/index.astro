@@ -1,47 +1,34 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import AnnouncementBar from '../components/AnnouncementBar.astro';
-import SiteHeader from '../components/SiteHeader.astro';
-import Hero from '../components/Hero.astro';
-import CompatibilityWall from '../components/CompatibilityWall.astro';
-import CapabilityBands from '../components/CapabilityBands.astro';
-import AgentsDeepDive from '../components/AgentsDeepDive.astro';
-import ArchitectureDiagram from '../components/ArchitectureDiagram.astro';
-import EndpointTable from '../components/EndpointTable.astro';
-import ProofRoadmap from '../components/ProofRoadmap.astro';
-import Quickstart from '../components/Quickstart.astro';
-import SiteFooter from '../components/SiteFooter.astro';
-import { landing } from '../content/landing';
-import '../styles/global.css';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Nav from "../components/marketing/Nav.astro";
+import Hero from "../components/marketing/Hero.astro";
+import TrustStrip from "../components/marketing/TrustStrip.astro";
+import Pillars from "../components/marketing/Pillars.astro";
+import FeatureSplit from "../components/marketing/FeatureSplit.astro";
+import Bento from "../components/marketing/Bento.astro";
+import Quickstart from "../components/marketing/Quickstart.astro";
+import CTA from "../components/marketing/CTA.astro";
+import Footer from "../components/marketing/Footer.astro";
+import { marketing } from "../content/marketing";
 ---
 
-<BaseLayout title={landing.meta.title} description={landing.meta.description}>
-  <AnnouncementBar />
-  <SiteHeader />
-  <main class="container mx-auto mb-6 max-w-7xl px-3 sm:px-5 lg:px-12">
+<BaseLayout title={marketing.meta.title} description={marketing.meta.description}>
+  <Nav />
+  <main>
     <Hero />
-    <hr class="dot-fill" />
-    <CompatibilityWall />
-    <hr class="dot-fill" />
-    <CapabilityBands />
-    <hr class="dot-fill" />
-    <AgentsDeepDive />
-    <ArchitectureDiagram />
-    <EndpointTable />
-    <hr class="dot-fill" />
-    <ProofRoadmap />
+    <TrustStrip />
+    <Pillars />
+    {marketing.features.map((feature, index) => (
+      <FeatureSplit feature={feature} index={index} />
+    ))}
+    <Bento />
     <Quickstart />
+    <CTA />
   </main>
-  <SiteFooter />
+  <Footer />
 </BaseLayout>
 
 <script>
-  import { initCopy } from '../scripts/copy';
-  import { initNav } from '../scripts/nav';
-  import { initTabs } from '../scripts/tabs';
-  import { initTheme } from '../scripts/theme';
+  import { initCopy } from "../scripts/copy";
   initCopy();
-  initNav();
-  initTabs();
-  initTheme();
 </script>

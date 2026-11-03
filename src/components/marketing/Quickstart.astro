@@ -1,0 +1,37 @@
+---
+import { marketing } from "../../content/marketing";
+const { quickstart } = marketing;
+---
+
+<section id="quickstart" class="py-20 md:py-28">
+  <div class="shell grid items-center gap-10 md:grid-cols-[0.9fr_1.1fr] md:gap-16">
+    <div>
+      <p class="eyebrow">{quickstart.eyebrow}</p>
+      <h2 class="mt-3 text-3xl font-semibold leading-tight md:text-4xl">{quickstart.title}</h2>
+      <p class="mt-4 text-base leading-relaxed text-fg-2">{quickstart.body}</p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a class="btn btn-ghost h-10 px-4 text-xs" href={quickstart.docs.href}>{quickstart.docs.label}</a>
+        <a class="btn btn-ghost h-10 px-4 text-xs" href={quickstart.release.href}>{quickstart.release.label}</a>
+      </div>
+    </div>
+
+    <div class="terminal">
+      <div class="terminal-bar">
+        <span class="terminal-dot"></span>
+        <span class="terminal-dot"></span>
+        <span class="terminal-dot"></span>
+        <button
+          type="button"
+          class="ml-auto rounded-md border border-white/10 px-2 py-1 font-mono text-[10px] text-fg-3 transition-colors hover:text-fg"
+          data-copy
+          data-copy-source="#quickstart-code"
+          data-copied-label="Copied ✓"
+        >
+          Copy
+        </button>
+      </div>
+      <pre id="quickstart-code" class="overflow-x-auto p-5 text-fg-2"><code>{quickstart.commands.join("\n\n")}</code></pre>
+      <p class="border-t border-white/10 px-5 py-3 text-xs text-fg-3">{quickstart.caption}</p>
+    </div>
+  </div>
+</section>

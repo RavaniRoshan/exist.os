@@ -1,0 +1,23 @@
+---
+import { marketing } from "../../content/marketing";
+const { bento } = marketing;
+---
+
+<section id="platform" class="py-20 md:py-28">
+  <div class="shell">
+    <p class="eyebrow">{bento.eyebrow}</p>
+    <h2 class="mt-3 max-w-2xl text-3xl font-semibold leading-tight md:text-4xl">{bento.title}</h2>
+
+    <div class="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {bento.items.map((item) => (
+        <div class="bento-cell">
+          <div class="flex items-center justify-between gap-3">
+            <h3 class="text-sm font-semibold">{item.title}</h3>
+            <span class="rounded-full border border-white/10 px-2 py-0.5 font-mono text-[10px] text-fg-3">{item.tag}</span>
+          </div>
+          <p class="mt-2 text-xs leading-relaxed text-fg-3">{item.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

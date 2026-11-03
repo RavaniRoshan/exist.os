@@ -1,0 +1,29 @@
+---
+import { marketing } from "../../content/marketing";
+const base = import.meta.env.BASE_URL;
+---
+
+<header class="sticky top-0 z-50 border-b border-white/10 bg-ink/80 backdrop-blur-xl">
+  <div class="shell flex h-16 items-center justify-between gap-4">
+    <a href={`${base}/`} class="flex items-center gap-2.5" aria-label="exist.io home">
+      <span class="grid size-7 place-items-center rounded-md bg-signal/15 font-mono text-xs font-semibold text-signal">e</span>
+      <span class="text-sm font-semibold tracking-tight">exist.io</span>
+    </a>
+
+    <nav class="hidden items-center gap-7 md:flex" aria-label="Main">
+      {marketing.nav.links.map((link) => (
+        <a class="text-sm text-fg-2 transition-colors hover:text-fg" href={link.href}>{link.label}</a>
+      ))}
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <a
+        class="hidden h-9 items-center rounded-full border border-white/10 px-3.5 text-xs font-medium text-fg-2 transition-colors hover:border-white/25 hover:text-fg sm:inline-flex"
+        href={marketing.nav.github}
+      >
+        {marketing.nav.githubLabel}
+      </a>
+      <a class="btn btn-primary h-9 px-4 text-xs" href="#quickstart">{marketing.nav.installLabel}</a>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,97 @@
+---
+import { marketing } from "../../content/marketing";
+const { lease, checks, stack } = marketing;
+
+interface Props {
+  feature: (typeof marketing.features)[number];
+  index: number;
+}
+
+const { feature, index } = Astro.props;
+const reversed = index % 2 === 1;
+---
+
+<section id={feature.id} class:list={["py-20 md:py-28", reversed && "bg-surface/30"]}>
+  <div class="shell grid items-center gap-10 md:grid-cols-2 md:gap-16">
+    <div class:list={[reversed && "md:order-2"]}>
+      <p class="eyebrow">{feature.eyebrow}</p>
+      <h2 class="mt-3 text-3xl font-semibold leading-tight md:text-4xl">{feature.title}</h2>
+      <p class="mt-4 text-base leading-relaxed text-fg-2">{feature.body}</p>
+      <ul class="mt-7 space-y-3">
+        {feature.points.map((point) => (
+          <li class="flex items-start gap-3 text-sm text-fg-2">
+            <span class="mt-1.5 size-1.5 shrink-0 rounded-full bg-signal"></span>
+            <span>{point}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div
+      class:list={[
+        feature.tone,
+        "relative flex min-h-[380px] items-center overflow-hidden rounded-3xl border border-white/10 p-6 md:p-8",
+        reversed && "md:order-1",
+      ]}
+    >
+      {feature.media === "lease" && (
+        <div class="terminal h-full w-full">
+          <div class="terminal-bar">
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="ml-auto font-mono text-[11px] text-fg-3">mcp</span>
+          </div>
+          <div class="p-5">
+            <p class="font-mono text-xs text-signal">{lease.title}</p>
+            <dl class="mt-4 grid grid-cols-[auto_1fr] gap-x-5 gap-y-2 font-mono text-xs">
+              {lease.rows.map(([key, value]) => (
+                <div class="contents">
+                  <dt class="text-fg-3">{key}</dt>
+                  <dd class="truncate text-fg">{value}</dd>
+                </div>
+              ))}
+            </dl>
+            <div class="mt-5 rounded-lg border border-signal/20 bg-signal/5 px-3 py-2 font-mono text-xs text-signal">
+              token {lease.token}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {feature.media === "checks" && (
+        <div class="w-full rounded-2xl border border-white/10 bg-[#0a0c0e] p-5">
+          <div class="flex items-center justify-between">
+            <p class="font-mono text-xs text-fg-3">{checks.title}</p>
+            <span class="rounded-full bg-signal/15 px-2 py-0.5 font-mono text-[10px] text-signal">ready</span>
+          </div>
+          <div class="mt-4 space-y-2">
+            {checks.rows.map(([label, status]) => (
+              <div class="flex items-center justify-between rounded-lg border border-white/10 px-3 py-2.5 text-xs">
+                <span class="text-fg-2">{label}</span>
+                <span class="font-mono text-signal">{status}</span>
+              </div>
+            ))}
+          </div>
+          <p class="mt-4 font-mono text-[11px] text-fg-3">{checks.footer}</p>
+        </div>
+      )}
+
+      {feature.media === "stack" && (
+        <div class="flex h-full w-full flex-col justify-center gap-2">
+          {stack.layers.map((layer, layerIndex) => (
+            <div>
+              <div class="rounded-xl border border-white/15 bg-[#0a0c0e]/80 px-4 py-4">
+                <p class="text-sm font-semibold">{layer.label}</p>
+                <p class="mt-1 font-mono text-[11px] text-fg-3">{layer.detail}</p>
+              </div>
+              {layerIndex < stack.layers.length - 1 && (
+                <p class="py-1 text-center font-mono text-xs text-fg-3">↓</p>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+</section>

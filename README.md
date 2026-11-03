@@ -1,35 +1,35 @@
 # exist.io landing page
 
-Marketing site for exist.io — an open-source, self-hosted Git forge for people and coding agents.
-
-- Design spec: `docs/superpowers/specs/2026-10-15-exist-io-landing-design.md`
-- PlanetScale extraction reference: `docs/superpowers/specs/2026-10-15-planetscale-homepage-reference.md`
-- Implementation plan: `docs/superpowers/plans/2026-10-15-exist-io-landing-page.md`
+Marketing site for exist.io — a self-hosted Git forge for people and coding agents.
 
 ## Develop
 
     npm install
-    npm run dev        # http://localhost:4321
+    npm run dev        # http://localhost:4321/exist.os
     npm run build      # static output in dist/
     npm run preview    # serve the build
     npm run check      # astro check (types)
 
+## Design
+
+The landing is a cinematic dark page: Inter for display and body, JetBrains Mono
+for code, a near-black canvas, mint signal accents, and large rounded media
+panels. The product screenshot in the hero is captured from a running instance.
+
 ## Content
 
-All copy and claims live in `src/content/landing.ts`. Every number on the
-page is verified by `node scripts/audit-claims.mjs` (run after `npm run build`)
-against the exist.io repository sources. Re-run the audit after any copy change.
+Copy lives in `src/content/marketing.ts`. Every number on the page is
+deliberately absent unless it is generated from source in the product repository;
+the page links to the docs and the claims ledger instead of duplicating counts.
 
-## Logos
+Run the claims audit after any copy change:
 
-The compatibility wall uses official brand marks from Simple Icons
-(CC0-1.0) and the GnuPG mark from Wikimedia Commons, converted to
-monochrome `currentColor` so they theme with the site. Regenerate with
-`node scripts/fetch-logos.mjs` (writes to `src/assets/logos/`).
-Protocols without canonical marks (SSH, OpenSSH, SAML, SCIM) are set as
-text wordmarks in `landing.ts`.
+    npm run build && node scripts/audit-claims.mjs
+
+It verifies the release tag, install sequence, ports, license, lease isolation,
+and the absence of stale counts and design language.
 
 ## Deploy
 
-Static output in `dist/`. For a subpath deploy (e.g. GitHub Pages project
-site), set `base` in `astro.config.mjs` before building.
+Static output in `dist/`. The site deploys under the `/exist.os` base path; see
+`astro.config.mjs`.
