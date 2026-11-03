@@ -10,7 +10,7 @@ export function initCopy(): void {
 
     button.addEventListener("click", async () => {
       try {
-        await navigator.clipboard.writeText(source.innerText);
+        await navigator.clipboard.writeText(source.textContent ?? source.innerText);
         button.textContent = button.dataset.copiedLabel ?? "Copied";
         if (status) status.textContent = "Copied";
       } catch {

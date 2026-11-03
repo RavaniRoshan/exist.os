@@ -1,6 +1,6 @@
 ---
-import "@fontsource-variable/inter";
-import "@fontsource-variable/jetbrains-mono";
+import "@fontsource-variable/geist";
+import "@fontsource-variable/geist-mono";
 import "../styles/global.css";
 
 interface Props {
@@ -14,10 +14,11 @@ const ogImage = `${siteUrl}og-exist-os.png`;
 ---
 
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f2f0ea" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="icon" href={`${base}/favicon.svg`} type="image/svg+xml" />
@@ -35,8 +36,9 @@ const ogImage = `${siteUrl}og-exist-os.png`;
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    <script is:inline>document.documentElement.classList.add("js");</script>
   </head>
-  <body class="bg-ink text-fg font-sans antialiased">
+  <body class="bg-paper text-ink font-sans antialiased">
     <slot />
   </body>
 </html>

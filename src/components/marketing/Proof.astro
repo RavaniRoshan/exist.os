@@ -1,0 +1,41 @@
+---
+import { marketing } from "../../content/marketing";
+const { proof, open } = marketing;
+---
+
+<section class="band-dark border-b border-black/50">
+  <div class="shell py-16 md:py-24">
+    <div class="flex flex-wrap items-end justify-between gap-6" data-reveal>
+      <div>
+        <p class="eyebrow text-[#9b988c]">{proof.eyebrow}</p>
+        <h2 class="heading mt-3 max-w-xl">A small surface you can audit.</h2>
+      </div>
+      <p class="max-w-xs text-xs leading-relaxed text-[#a5a296]">{proof.note}</p>
+    </div>
+
+    <div class="mt-10 grid grid-cols-2 gap-8 border-t border-white/10 pt-10 sm:grid-cols-4" data-reveal>
+      {proof.items.map((item) => (
+        <div>
+          <p class="stat-value text-[#f2f0ea]">{item.value}</p>
+          <p class="mt-3 font-mono text-[11px] uppercase tracking-[0.14em] text-[#a5a296]">{item.label}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-16 grid gap-10 border-t border-white/10 pt-12 md:grid-cols-[1fr_1.1fr]">
+      <div data-reveal>
+        <p class="eyebrow text-[#9b988c]">Proof, not promises</p>
+        <h2 class="heading mt-3">{open.title}</h2>
+        <p class="mt-3 max-w-md text-sm leading-relaxed text-[#a5a296]">{open.body}</p>
+      </div>
+      <div class="grid gap-2 sm:grid-cols-2" data-reveal>
+        {open.links.map((link) => (
+          <a class="link-row" href={link.href}>
+            {link.label}
+            <span class="text-[#7fc2a8]">↗</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

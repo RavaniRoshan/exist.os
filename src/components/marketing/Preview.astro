@@ -1,0 +1,50 @@
+---
+const base = import.meta.env.BASE_URL;
+---
+
+<section id="preview" class="border-b border-line">
+  <div class="shell py-16 md:py-24">
+    <div class="flex flex-wrap items-end justify-between gap-6" data-reveal>
+      <div>
+        <p class="eyebrow">The product</p>
+        <h2 class="heading mt-3 max-w-xl">The whole loop, in one view.</h2>
+        <p class="body mt-3 max-w-lg">
+          A real pull request in the Forge UI: checks, reviewers, and the merge gate on one screen.
+        </p>
+      </div>
+      <span class="tag"><span class="size-1.5 rounded-full bg-mint" aria-hidden="true"></span>real product</span>
+    </div>
+
+    <figure class="mt-8" data-reveal>
+      <div class="card overflow-hidden p-1.5">
+        <div class="flex h-9 items-center gap-1.5 border-b border-line px-3">
+          <span class="size-2 rounded-full bg-line"></span>
+          <span class="size-2 rounded-full bg-line"></span>
+          <span class="size-2 rounded-full bg-line"></span>
+          <span class="ml-3 flex items-center gap-1.5 truncate text-xs text-ink-3">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <rect x="5" y="10" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.8" />
+              <path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="1.8" />
+            </svg>
+            acme/demo · pull request #1
+          </span>
+          <span class="ml-auto hidden text-[11px] text-ink-3 sm:inline">localhost:8080</span>
+        </div>
+        <div class="preview-screen">
+          <img
+            src={`${base}/forge-pr.png`}
+            alt="exist.io pull request view with passing checks, reviewers, and the merge gate"
+            width="1280"
+            height="800"
+            class="w-full"
+            loading="lazy"
+          />
+        </div>
+      </div>
+      <figcaption class="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs text-ink-3">
+        <span>Captured from a local existd instance · acme/demo</span>
+        <span>Pull request #1 · checks 1/1 · merge gate passed</span>
+      </figcaption>
+    </figure>
+  </div>
+</section>

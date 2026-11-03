@@ -1,0 +1,250 @@
+---
+import "@fontsource-variable/geist";
+import "@fontsource-variable/geist-mono";
+
+const cx = 200;
+const cy = 200;
+const radius = 130;
+const angles = [-90, -30, 30, 90, 150, 210];
+const labels = ["Lease", "Clone", "Push", "Open PR", "Review", "Merge"];
+const nodes = labels.map((label, index) => {
+  const angle = (angles[index] * Math.PI) / 180;
+  const ly = cy + 158 * Math.sin(angle);
+  return {
+    label,
+    x: cx + radius * Math.cos(angle),
+    y: cy + radius * Math.sin(angle),
+    lx: cx + 158 * Math.cos(angle),
+    ly: index === 0 ? 24 : index === 3 ? 382 : ly + 4,
+    anchor: Math.cos(angle) > 0.2 ? "start" : Math.cos(angle) < -0.2 ? "end" : "middle",
+  };
+});
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex" />
+    <title>exist.io — social card</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
+        background: #f2f0ea;
+      }
+
+      body {
+        font-family: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+        color: #121210;
+      }
+
+      .og {
+        position: relative;
+        width: 1200px;
+        height: 630px;
+        padding: 42px 56px 40px;
+        display: flex;
+        flex-direction: column;
+        background:
+          radial-gradient(48% 58% at 84% 32%, rgba(15, 122, 90, 0.12), transparent 62%),
+          radial-gradient(42% 46% at 6% 2%, rgba(235, 229, 200, 0.6), transparent 62%),
+          #f2f0ea;
+      }
+
+      .og-grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(to right, rgba(18, 18, 16, 0.055) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(18, 18, 16, 0.055) 1px, transparent 1px);
+        background-size: 72px 72px;
+        mask-image: radial-gradient(68% 62% at 72% 30%, #000 0%, transparent 78%);
+      }
+
+      .og-head {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 15px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 500;
+        letter-spacing: -0.02em;
+      }
+
+      .meta {
+        font-family: "Geist Mono Variable", ui-monospace, monospace;
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #747167;
+      }
+
+      .main {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1.08fr 0.92fr;
+        gap: 34px;
+        align-items: center;
+        flex: 1;
+        min-height: 0;
+      }
+
+      .eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        color: #4c4a42;
+      }
+
+      .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+        background: #0f7a5a;
+      }
+
+      h1 {
+        margin: 18px 0 0;
+        font-size: 62px;
+        line-height: 0.98;
+        letter-spacing: -0.05em;
+        font-weight: 400;
+      }
+
+      h1 span {
+        color: #0f7a5a;
+      }
+
+      p {
+        margin: 20px 0 0;
+        max-width: 470px;
+        font-size: 17px;
+        line-height: 1.5;
+        color: #4c4a42;
+      }
+
+      .orbit-card {
+        border: 1px solid rgba(18, 18, 16, 0.14);
+        border-radius: 14px;
+        background: #f7f5ef;
+        padding: 18px;
+      }
+
+      .orbit-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 13px;
+        font-weight: 500;
+      }
+
+      .orbit-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border: 1px solid rgba(18, 18, 16, 0.14);
+        border-radius: 999px;
+        padding: 2px 8px;
+        font-size: 10px;
+        color: #747167;
+      }
+
+      .install {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        height: 44px;
+        border-radius: 8px;
+        background: #141414;
+        padding: 0 16px;
+        color: #e9e6da;
+        font-family: "Geist Mono Variable", ui-monospace, monospace;
+        font-size: 12px;
+        white-space: nowrap;
+      }
+
+      .prompt {
+        color: #7fc2a8;
+      }
+
+      .copy {
+        margin-left: auto;
+        color: #b8b5a8;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="og">
+      <div class="og-grid"></div>
+
+      <div class="og-head">
+        <div class="brand">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 5v9a4 4 0 0 0 4 4h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+            <circle cx="6" cy="4" r="2" fill="currentColor" />
+            <circle cx="18" cy="18" r="2" fill="currentColor" />
+            <path d="M18 5v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          </svg>
+          exist.io
+        </div>
+        <div class="meta">v0.6.0-beta · Apache-2.0</div>
+      </div>
+
+      <div class="main">
+        <div>
+          <div class="eyebrow"><span class="dot"></span>The self-hosted Git forge for coding agents.</div>
+          <h1>Run your own forge,<br /><span>in minutes.</span></h1>
+          <p>Scoped leases, pull requests, checks, and merges — on infrastructure you control.</p>
+        </div>
+
+        <div class="orbit-card">
+          <div class="orbit-head">
+            <span>From lease to merge.</span>
+            <span class="orbit-tag"><span class="dot"></span>live loop</span>
+          </div>
+          <svg viewBox="0 0 400 420" width="100%" aria-hidden="true">
+            <circle cx={cx} cy={cy} r={radius} fill="none" stroke="rgba(18,18,16,0.14)" stroke-width="1" stroke-dasharray="4 6" />
+            <g>
+              <rect x="130" y="168" width="140" height="64" rx="10" fill="#f2f0ea" stroke="rgba(18,18,16,0.14)" />
+              <text x="200" y="190" text-anchor="middle" font-size="8" letter-spacing="1.2" fill="#747167">CAPABILITY LEASE</text>
+              <text x="200" y="212" text-anchor="middle" font-size="19" fill="#121210">15:00</text>
+              <text x="200" y="226" text-anchor="middle" font-size="8" fill="#0f7a5a">HMAC-SHA256</text>
+            </g>
+            {nodes.map((node, index) => (
+              <g>
+                <circle cx={node.x} cy={node.y} r={index === 0 ? 34 : 26} fill={index === 0 ? "#dcece4" : "#f7f5ef"} stroke={index === 0 ? "#0f7a5a" : "rgba(18,18,16,0.14)"} />
+                <text x={node.x} y={node.y + 4} text-anchor="middle" font-size="11" fill={index === 0 ? "#0f7a5a" : "#121210"}>0{index + 1}</text>
+                <text x={node.lx} y={node.ly} text-anchor={node.anchor} font-size="10" fill="#747167">{node.label}</text>
+              </g>
+            ))}
+          </svg>
+        </div>
+      </div>
+
+      <div class="install">
+        <span class="prompt">$</span>
+        <span>curl -fsSL https://raw.githubusercontent.com/RavaniRoshan/exist.io/main/scripts/install.sh | bash</span>
+        <span class="copy">copy</span>
+      </div>
+    </div>
+  </body>
+</html>

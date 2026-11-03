@@ -2,11 +2,10 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Nav from "../components/marketing/Nav.astro";
 import Hero from "../components/marketing/Hero.astro";
-import TrustStrip from "../components/marketing/TrustStrip.astro";
-import Pillars from "../components/marketing/Pillars.astro";
-import FeatureSplit from "../components/marketing/FeatureSplit.astro";
-import Bento from "../components/marketing/Bento.astro";
-import Showcase from "../components/marketing/Showcase.astro";
+import Preview from "../components/marketing/Preview.astro";
+import Features from "../components/marketing/Features.astro";
+import Integrations from "../components/marketing/Integrations.astro";
+import Proof from "../components/marketing/Proof.astro";
 import Quickstart from "../components/marketing/Quickstart.astro";
 import CTA from "../components/marketing/CTA.astro";
 import Footer from "../components/marketing/Footer.astro";
@@ -17,13 +16,10 @@ import { marketing } from "../content/marketing";
   <Nav />
   <main>
     <Hero />
-    <TrustStrip />
-    <Pillars />
-    {marketing.features.map((feature, index) => (
-      <FeatureSplit feature={feature} index={index} />
-    ))}
-    <Showcase />
-    <Bento />
+    <Preview />
+    <Features />
+    <Integrations />
+    <Proof />
     <Quickstart />
     <CTA />
   </main>
@@ -31,11 +27,6 @@ import { marketing } from "../content/marketing";
 </BaseLayout>
 
 <script>
-  import { initCopy } from "../scripts/copy";
-  import { initMergeGate } from "../scripts/gate";
-  import { initReveal } from "../scripts/reveal";
-
-  initCopy();
-  initMergeGate();
-  initReveal();
+  import { initLanding } from "../scripts/landing";
+  initLanding();
 </script>
