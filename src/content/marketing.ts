@@ -18,20 +18,16 @@ export const marketing = {
   },
 
   hero: {
-    eyebrow: "v0.6.0-beta · the Forge UI is here",
-    eyebrowHref: "https://github.com/RavaniRoshan/exist.io/releases/tag/v0.6.0-beta",
-    titleLead: "Your own Git forge,",
-    titleAccent: "built for agents.",
-    body: "exist.io is a self-hosted Git platform where coding agents hold scoped leases, open pull requests, and merge through policy — on one pure-Go binary you control.",
+    title: "Your own Git forge.",
+    body: "Built for agents. A self-hosted Git forge where coding agents hold scoped leases, open pull requests, and merge through policy.",
     primary: { label: "Install in one command", href: "#quickstart" },
     secondary: { label: "Star on GitHub", href: "https://github.com/RavaniRoshan/exist.io" },
-    note: "Apache-2.0 · pure Go · zero CGO",
-    screenshotAlt:
-      "exist.io pull request view with passing checks, reviewers, and the merge gate",
+    note: "v0.6.0-beta · Apache-2.0 · pure Go · zero CGO",
+    screenshotAlt: "exist.io pull request view with passing checks, reviewers, and the merge gate",
   },
 
   trust: {
-    label: "Works with the protocols and tools you already run",
+    label: "Runs the protocols you already use.",
     items: [
       "Git",
       "SSH",
@@ -56,8 +52,8 @@ export const marketing = {
     },
     {
       title: "MCP native",
-      body: "The same forge speaks Model Context Protocol at /mcp, with a read-only sandbox for untrusted agents.",
-      detail: "/mcp · /mcp/readonly",
+      body: "The same forge speaks Model Context Protocol, with a read-only sandbox for untrusted agents.",
+      detail: "/mcp and /mcp/readonly",
     },
     {
       title: "One binary",
@@ -69,8 +65,7 @@ export const marketing = {
   features: [
     {
       id: "agents",
-      eyebrow: "Agent-native",
-      title: "Your agents hold permissions, not passwords.",
+      title: "Permissions, not passwords.",
       body: "An agent requests a lease, clones, pushes to its own ref, opens a pull request, and the lease expires. Every action is scoped, signed, and audited.",
       points: [
         "Ephemeral HMAC-SHA256 capability tokens.",
@@ -82,7 +77,6 @@ export const marketing = {
     },
     {
       id: "review",
-      eyebrow: "Review & merge",
       title: "A reviewer that never sleeps.",
       body: "Every diff is inspected for leaked secrets and missing coverage. Results arrive as check runs, and the merge gate enforces your rulesets before anything lands.",
       points: [
@@ -91,13 +85,12 @@ export const marketing = {
         "Auto-merge once every required check passes.",
       ],
       tone: "tone-clay",
-      media: "checks",
+      media: "gate",
     },
     {
       id: "architecture",
-      eyebrow: "Architecture",
       title: "One daemon. Three layers.",
-      body: "Clients and agents reach existd over HTTP and SSH. Policy and transports run in-process. All state stays on local disk — no external database, no host SSH daemon.",
+      body: "Clients and agents reach existd over HTTP and SSH. Policy and transports run in-process. All state stays on local disk, with no external database and no host SSH daemon.",
       points: [
         "Pure-Go Smart-HTTP and SSH transports.",
         "SQLite WAL metadata and bare Git repositories.",
@@ -109,38 +102,37 @@ export const marketing = {
   ],
 
   lease: {
-    title: "lease_request",
-    rows: [
-      ["agent", "claude-code"],
-      ["repo", "acme/demo"],
-      ["refs", "refs/heads/agent/*"],
-      ["ttl", "15m"],
-      ["signature", "HMAC-SHA256"],
-    ],
-    token: "lease_01M6…f3a2",
+    code: `{
+  "agent": "claude-code",
+  "repo": "acme/demo",
+  "refs": ["refs/heads/agent/*"],
+  "ttl": "15m",
+  "signature": "HMAC-SHA256"
+}`,
+    token: "lease_01M6...f3a2",
   },
 
-  checks: {
-    title: "Merge gate",
+  gate: {
     rows: [
-      ["Policy & ruleset guard", "passed"],
-      ["Secret scan", "passed"],
-      ["Review", "approved"],
+      "Policy and ruleset guard",
+      "Secret scan",
+      "Review approval",
     ],
-    footer: "All checks passed · ready to merge",
+    enabled: "Merge pull request",
+    blocked: "Merge blocked by policy",
+    ready: "All checks passed.",
   },
 
   stack: {
     layers: [
-      { label: "Clients & agents", detail: "HTTP · SSH · MCP" },
+      { label: "Clients and agents", detail: "HTTP · SSH · MCP" },
       { label: "existd", detail: "policy · transports · UI" },
       { label: "Local disk", detail: "SQLite WAL · bare repos" },
     ],
   },
 
   bento: {
-    eyebrow: "Platform",
-    title: "Everything a forge needs. Nothing it doesn't.",
+    title: "Everything a forge needs.",
     items: [
       { title: "Smart-HTTP", body: "Clone, fetch, and push over one authenticated endpoint.", tag: ":8080" },
       { title: "Embedded SSH", body: "A pure-Go SSH server with no host sshd.", tag: ":2222" },
@@ -151,15 +143,14 @@ export const marketing = {
       { title: "Webhooks", body: "HMAC-signed delivery with attempt history.", tag: "signed" },
       { title: "Notifications", body: "An in-app inbox plus a pure-Go SMTP sender.", tag: "SMTP" },
       { title: "Migration", body: "Import repositories, issues, pull requests, and comments.", tag: "GitHub" },
-      { title: "SSO & SCIM", body: "OIDC, SAML, and RFC 7644 provisioning. Frozen for launch.", tag: "experimental" },
-      { title: "Terraform & Helm", body: "Provider and chart shipped in the repo. Frozen for launch.", tag: "experimental" },
+      { title: "SSO and SCIM", body: "OIDC, SAML, and RFC 7644 provisioning. Frozen for launch.", tag: "experimental" },
+      { title: "Terraform and Helm", body: "Provider and chart shipped in the repo. Frozen for launch.", tag: "experimental" },
       { title: "Prometheus", body: "Metrics and health probes for your cluster.", tag: "/metrics" },
     ],
   },
 
   quickstart: {
-    eyebrow: "Get started",
-    title: "A working forge in one command.",
+    title: "A forge in one command.",
     body: "The installer resolves the newest release and verifies its SHA-256 manifest before installing.",
     commands: [
       "curl -fsSL https://raw.githubusercontent.com/RavaniRoshan/exist.io/main/scripts/install.sh | bash",

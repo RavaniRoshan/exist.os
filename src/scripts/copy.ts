@@ -1,17 +1,20 @@
 export function initCopy(): void {
   document.querySelectorAll<HTMLButtonElement>("[data-copy]").forEach((button) => {
-    const source = document.querySelector<HTMLElement>(button.dataset.copySource ?? "");
-    const status = document.querySelector<HTMLElement>(button.dataset.copyStatus ?? "");
-    const defaultLabel = button.textContent ?? "Copy";
+    const selector = button.dataset.copySource;
+    if (!selector) return;
+    const source = document.querySelector<HTMLElement>(selector);
     if (!source) return;
+    const statusSelector = button.dataset.copyStatus;
+    const status = statusSelector ? document.querySelector<HTMLElement>(statusSelector) : null;
+    const defaultLabel = button.textContent ?? "Copy";
 
     button.addEventListener("click", async () => {
       try {
         await navigator.clipboard.writeText(source.innerText);
-        button.textContent = button.dataset.copiedLabel ?? "Copied ✓";
+        button.textContent = button.dataset.copiedLabel ?? "Copied";
         if (status) status.textContent = "Copied";
       } catch {
-        button.textContent = "Copy failed — select manually";
+        button.textContent = "Copy failed";
       }
       window.setTimeout(() => {
         button.textContent = defaultLabel;

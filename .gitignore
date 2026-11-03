@@ -3,3 +3,6 @@ dist/
 .astro/
 
 .preview/
+
+# Local design inspection artefacts
+.taste-skill/
