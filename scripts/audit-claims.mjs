@@ -4,12 +4,10 @@ const html = readFileSync(new URL("../dist/index.html", import.meta.url), "utf8"
 
 const required = [
   ["v0.6.0-beta", "current release"],
-  ["Your own Git forge.", "hero headline"],
-  ["Built for agents.", "hero lead"],
+  ["Run your own forge,", "hero headline"],
+  ["in minutes.", "hero accent"],
   ["install.sh | bash", "install command"],
   ["existd bootstrap --email admin@corp.exist.io", "bootstrap command"],
-  [":2222", "SSH port"],
-  [":8080", "HTTP port"],
   ["Apache-2.0", "license"],
   ["refs/heads/agent/*", "lease isolation"],
 ];

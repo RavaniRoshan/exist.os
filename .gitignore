@@ -6,3 +6,6 @@ dist/
 
 # Local design inspection artefacts
 .taste-skill/
+
+# Firecrawl extraction output
+.firecrawl/

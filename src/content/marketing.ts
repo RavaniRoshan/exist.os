@@ -5,12 +5,20 @@ export const marketing = {
       "exist.io is a self-hosted Git forge where coding agents hold scoped capability leases, open pull requests, and merge through policy. One pure-Go binary, no external services.",
   },
 
+  announcement: {
+    tag: "v0.6.0-beta",
+    text: "The agent loop, end to end.",
+    link: "Release notes",
+    href: "https://github.com/RavaniRoshan/exist.io/releases/tag/v0.6.0-beta",
+  },
+
   nav: {
     links: [
+      { label: "Product", href: "#product" },
       { label: "Agents", href: "#agents" },
       { label: "Platform", href: "#platform" },
-      { label: "Install", href: "#quickstart" },
       { label: "Docs", href: "https://ravaniroshan.github.io/exist.io/" },
+      { label: "Changelog", href: "https://github.com/RavaniRoshan/exist.io/releases" },
     ],
     github: "https://github.com/RavaniRoshan/exist.io",
     githubLabel: "GitHub",
@@ -18,12 +26,64 @@ export const marketing = {
   },
 
   hero: {
-    title: "Your own Git forge.",
-    body: "Built for agents. A self-hosted Git forge where coding agents hold scoped leases, open pull requests, and merge through policy.",
-    primary: { label: "Install in one command", href: "#quickstart" },
-    secondary: { label: "Star on GitHub", href: "https://github.com/RavaniRoshan/exist.io" },
+    kicker: "The self-hosted Git forge for coding agents.",
+    titleLead: "Run your own forge,",
+    titleAccent: "in minutes.",
+    body: "exist.io gives coding agents a real Git home: scoped leases, pull requests, checks, and merges on infrastructure you control.",
+    primary: { label: "Get started", href: "#quickstart" },
+    secondary: { label: "Read the docs", href: "https://ravaniroshan.github.io/exist.io/" },
+    install: "curl -fsSL https://raw.githubusercontent.com/RavaniRoshan/exist.io/main/scripts/install.sh | bash",
     note: "v0.6.0-beta · Apache-2.0 · pure Go · zero CGO",
     screenshotAlt: "exist.io pull request view with passing checks, reviewers, and the merge gate",
+  },
+
+  loop: {
+    title: "From lease to merge.",
+    hint: "Six steps. One short-lived credential.",
+    steps: [
+      {
+        id: "lease",
+        label: "Lease",
+        title: "Request a lease",
+        detail: "A short-lived HMAC token scoped to refs/heads/agent/*.",
+        meta: "POST /api/v1/leases → 15m",
+      },
+      {
+        id: "clone",
+        label: "Clone",
+        title: "Clone the repo",
+        detail: "The lease authenticates Git Smart-HTTP or SSH.",
+        meta: "git clone http://…/acme/demo",
+      },
+      {
+        id: "push",
+        label: "Push",
+        title: "Push a branch",
+        detail: "The pre-receive hook enforces the ref prefix and scans for secrets.",
+        meta: "git push origin agent/capture",
+      },
+      {
+        id: "pr",
+        label: "Open PR",
+        title: "Open a pull request",
+        detail: "The agent opens a PR through MCP, not a personal token.",
+        meta: "mcp create_pull_request",
+      },
+      {
+        id: "review",
+        label: "Review",
+        title: "Review the diff",
+        detail: "Checks, rulesets, and the reviewer agent run before merge.",
+        meta: "checks: secret-scan ✓",
+      },
+      {
+        id: "merge",
+        label: "Merge",
+        title: "Merge through policy",
+        detail: "The merge gate passes, the lease expires, and the audit log records it.",
+        meta: "merge gate: 3/3 ✓",
+      },
+    ],
   },
 
   trust: {
@@ -62,44 +122,49 @@ export const marketing = {
     },
   ],
 
-  features: [
-    {
-      id: "agents",
-      title: "Permissions, not passwords.",
-      body: "An agent requests a lease, clones, pushes to its own ref, opens a pull request, and the lease expires. Every action is scoped, signed, and audited.",
-      points: [
-        "Ephemeral HMAC-SHA256 capability tokens.",
-        "Ref-prefix isolation to refs/heads/agent/*.",
-        "Read-only MCP sandbox for untrusted agents.",
-      ],
-      tone: "tone-steel",
-      media: "lease",
-    },
-    {
-      id: "review",
-      title: "A reviewer that never sleeps.",
-      body: "Every diff is inspected for leaked secrets and missing coverage. Results arrive as check runs, and the merge gate enforces your rulesets before anything lands.",
-      points: [
-        "Secret and private-key detection before merge.",
-        "Rulesets for approvals, checks, and bypass actors.",
-        "Auto-merge once every required check passes.",
-      ],
-      tone: "tone-clay",
-      media: "gate",
-    },
-    {
-      id: "architecture",
-      title: "One daemon. Three layers.",
-      body: "Clients and agents reach existd over HTTP and SSH. Policy and transports run in-process. All state stays on local disk, with no external database and no host SSH daemon.",
-      points: [
-        "Pure-Go Smart-HTTP and SSH transports.",
-        "SQLite WAL metadata and bare Git repositories.",
-        "CGO-free builds for Linux, macOS, and Windows.",
-      ],
-      tone: "tone-moss",
-      media: "stack",
-    },
-  ],
+  features: {
+    eyebrow: "Under the hood",
+    title: "Policy at every step, not just at the edge.",
+    body: "The loop is enforced by the server, not by convention. Each stage narrows what an agent can do next.",
+    items: [
+      {
+        id: "agents",
+        eyebrow: "01 · Capability leases",
+        title: "Permissions, not passwords.",
+        body: "An agent requests a lease, clones, pushes to its own ref, opens a pull request, and the lease expires. Every action is scoped, signed, and audited.",
+        points: [
+          "Ephemeral HMAC-SHA256 capability tokens.",
+          "Ref-prefix isolation to refs/heads/agent/*.",
+          "Read-only MCP sandbox for untrusted agents.",
+        ],
+        media: "lease",
+      },
+      {
+        id: "review",
+        eyebrow: "02 · Review and merge",
+        title: "A reviewer that never sleeps.",
+        body: "Every diff is inspected for leaked secrets and missing coverage. Results arrive as check runs, and the merge gate enforces your rulesets before anything lands.",
+        points: [
+          "Secret and private-key detection before merge.",
+          "Rulesets for approvals, checks, and bypass actors.",
+          "Auto-merge once every required check passes.",
+        ],
+        media: "gate",
+      },
+      {
+        id: "architecture",
+        eyebrow: "03 · Runtime",
+        title: "One daemon. Three layers.",
+        body: "Clients and agents reach existd over HTTP and SSH. Policy and transports run in-process. All state stays on local disk, with no external database and no host SSH daemon.",
+        points: [
+          "Pure-Go Smart-HTTP and SSH transports.",
+          "SQLite WAL metadata and bare Git repositories.",
+          "CGO-free builds for Linux, macOS, and Windows.",
+        ],
+        media: "stack",
+      },
+    ],
+  },
 
   lease: {
     code: `{
@@ -109,7 +174,8 @@ export const marketing = {
   "ttl": "15m",
   "signature": "HMAC-SHA256"
 }`,
-    token: "lease_01M6...f3a2",
+    token: "lease_01M6…f3a2",
+    renew: "Renew lease",
   },
 
   gate: {
@@ -118,7 +184,12 @@ export const marketing = {
       "Secret scan",
       "Review approval",
     ],
+    run: "Re-run checks",
+    running: "Running checks…",
     enabled: "Merge pull request",
+    merging: "Merging…",
+    merged: "Merged into main",
+    mergedStatus: "Merge gate passed. Lease revoked, audit entry written.",
     blocked: "Merge blocked by policy",
     ready: "All checks passed.",
   },
@@ -128,6 +199,51 @@ export const marketing = {
       { label: "Clients and agents", detail: "HTTP · SSH · MCP" },
       { label: "existd", detail: "policy · transports · UI" },
       { label: "Local disk", detail: "SQLite WAL · bare repos" },
+    ],
+    chips: {
+      clients: ["HTTP", "SSH", "MCP"],
+      existd: ["policy", "audit", "rulesets"],
+      disk: ["SQLite WAL", "bare repos"],
+    },
+  },
+
+  integrations: {
+    eyebrow: "Compatibility",
+    title: "Plays well with your stack.",
+    body: "The protocols and formats your team already runs, without an external service in the middle.",
+    items: [
+      { name: "Git", logo: "git", kind: "transport" },
+      { name: "Git LFS", logo: "gitlfs", kind: "storage" },
+      { name: "GPG", logo: "gnupg", kind: "signing" },
+      { name: "SQLite", logo: "sqlite", kind: "embedded" },
+      { name: "MCP", logo: "modelcontextprotocol", kind: "agent" },
+      { name: "OIDC", logo: "openid", kind: "identity" },
+      { name: "Terraform", logo: "terraform", kind: "IaC" },
+      { name: "Helm", logo: "helm", kind: "packaging" },
+      { name: "Kubernetes", logo: "kubernetes", kind: "runtime" },
+      { name: "Prometheus", logo: "prometheus", kind: "metrics" },
+    ],
+  },
+
+  proof: {
+    eyebrow: "Evidence, not adjectives",
+    items: [
+      { value: "1", label: "binary to deploy" },
+      { value: "0", label: "external services" },
+      { value: "5", label: "release targets" },
+      { value: "100%", label: "open source" },
+    ],
+    note: "One static Go binary. No database server, no queue, no hosted control plane.",
+  },
+
+  open: {
+    title: "Built in the open.",
+    body: "Every capability is tracked against code evidence. Audit the ledger, the threat model, or the release before you deploy.",
+    links: [
+      { label: "Claims ledger", href: "https://github.com/RavaniRoshan/exist.io/blob/main/CLAIMS.md" },
+      { label: "Threat model", href: "https://github.com/RavaniRoshan/exist.io/blob/main/THREAT_MODEL.md" },
+      { label: "Release notes", href: "https://github.com/RavaniRoshan/exist.io/releases/tag/v0.6.0-beta" },
+      { label: "Read the docs", href: "https://ravaniroshan.github.io/exist.io/" },
     ],
   },
 
@@ -150,14 +266,24 @@ export const marketing = {
   },
 
   quickstart: {
+    eyebrow: "Start here",
     title: "A forge in one command.",
-    body: "The installer resolves the newest release and verifies its SHA-256 manifest before installing.",
-    commands: [
-      "curl -fsSL https://raw.githubusercontent.com/RavaniRoshan/exist.io/main/scripts/install.sh | bash",
-      "existd bootstrap --email admin@corp.exist.io --namespace acme --data-dir ./data",
-      "existd",
+    body: "Three commands from a verified tarball to your own forge. The daemon embeds the database, the web UI, and the Git transports.",
+    steps: [
+      {
+        label: "Install",
+        command: "curl -fsSL https://raw.githubusercontent.com/RavaniRoshan/exist.io/main/scripts/install.sh | bash",
+      },
+      {
+        label: "Bootstrap",
+        command: "existd bootstrap --email admin@corp.exist.io --namespace acme --data-dir ./data",
+      },
+      {
+        label: "Run",
+        command: "existd",
+      },
     ],
-    caption: "Open http://localhost:8080. Bootstrap prints the MCP snippet and admin key.",
+    caption: "Bootstrap prints the admin API key once. Store it, then open http://localhost:8080.",
     docs: { label: "Read the docs", href: "https://ravaniroshan.github.io/exist.io/" },
     release: {
       label: "v0.6.0-beta release notes",
@@ -170,9 +296,12 @@ export const marketing = {
     body: "One binary, your hardware, your agents. Star the repo or deploy it now.",
     primary: { label: "Install exist.io", href: "#quickstart" },
     secondary: { label: "Star on GitHub", href: "https://github.com/RavaniRoshan/exist.io" },
+    note: "Apache-2.0 · self-hosted · no vendor account",
   },
 
   footer: {
+    tagline: "A self-hosted Git forge for people and coding agents.",
+    status: "v0.6.0-beta",
     columns: [
       {
         title: "Project",
