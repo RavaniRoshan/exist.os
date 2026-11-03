@@ -19,7 +19,7 @@ const nodes = loop.steps.map((step, index) => {
 ---
 
 <section class="hero-wash relative overflow-hidden border-b border-line">
-  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="hero-canvas absolute inset-0 z-0" aria-hidden="true"></div>
 
   <div class="shell relative grid gap-12 pt-14 pb-8 md:grid-cols-[1.02fr_0.98fr] md:items-center md:gap-14 md:pt-24 md:pb-10">
     <div class="min-w-0" data-reveal>
@@ -28,7 +28,11 @@ const nodes = loop.steps.map((step, index) => {
         {hero.kicker}
       </p>
       <h1 class="display mt-5 max-w-xl">
-        {hero.titleLead}<br /><span class="text-mint">{hero.titleAccent}</span>
+        {hero.titleLead.split("").map((char, index) => (
+          <span class="hero-char" style={{ "--delay": `${index * 0.04}s` }} aria-hidden="true">{char}</span>
+        ))}<br /><span class="text-mint">{hero.titleAccent.split("").map((char, index) => (
+          <span class="hero-char" style={{ "--delay": `${(hero.titleLead.length + index) * 0.04}s` }} aria-hidden="true">{char}</span>
+        ))}</span>
       </h1>
       <p class="lead mt-6 max-w-lg">{hero.body}</p>
 
@@ -58,6 +62,7 @@ const nodes = loop.steps.map((step, index) => {
             <text x="280" y="234" text-anchor="middle" font-size="10" letter-spacing="1.4" fill="var(--color-ink-3)">CAPABILITY LEASE</text>
             <text x="280" y="260" text-anchor="middle" font-size="22" fill="var(--color-ink)">15:00</text>
             <text x="280" y="278" text-anchor="middle" font-size="10" fill="var(--color-mint)">HMAC-SHA256</text>
+            <circle class="hotspot" cx="280" cy="260" r="16" fill="none" stroke="var(--color-mint)" stroke-width="2" stroke-opacity="0" pointer-events="all" data-label="Lease duration: 15 minutes" />
           </g>
 
           {nodes.map((node) => (
@@ -78,6 +83,7 @@ const nodes = loop.steps.map((step, index) => {
               <circle class="node-dot" cx={node.x} cy={node.y} r="34" fill="var(--color-paper)" stroke="var(--color-line)" />
               <text class="node-num" x={node.x} y={node.y + 4} text-anchor="middle" font-size="12" fill="var(--color-ink)">0{node.index + 1}</text>
               <text x={node.lx} y={node.ly} text-anchor={node.anchor} font-size="12" fill="var(--color-ink-3)">{node.label}</text>
+              <circle class="hotspot" cx={node.x} cy={node.y} r="40" fill="none" stroke="var(--color-mint)" stroke-width="2" stroke-opacity="0" pointer-events="all" data-label={node.detail} />
             </g>
           ))}
         </svg>

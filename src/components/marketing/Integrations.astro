@@ -26,15 +26,12 @@ const { integrations } = marketing;
       <span class="tag">{integrations.items.length} integrations</span>
     </div>
 
-    <div class="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-      {integrations.items.map((item) => (
-        <div class="grid-card card flex items-center gap-3 p-4" data-reveal>
-          <span class="logo text-ink-3 [&_svg]:size-5" set:html={logos[item.logo]} />
-          <span class="min-w-0">
-            <span class="block truncate text-sm">{item.name}</span>
-            <span class="mt-0.5 block font-mono text-[10px] uppercase tracking-[0.12em] text-ink-3">{item.kind}</span>
-          </span>
-        </div>
+    <div class="mt-12 trust-grid">
+      {integrations.items.map((item, index) => (
+        <a class="trust-item group" href={item.url} target="_blank" rel="noopener noreferrer" data-reveal style={{ "--delay": `${index * 0.06}s` }}>
+          <span class="logo text-ink-3 [&_svg]:size-6 transition-colors group-hover:text-mint" set:html={logos[item.logo]} />
+          <span class="sr-only">{item.name} — {item.kind}</span>
+        </a>
       ))}
     </div>
   </div>

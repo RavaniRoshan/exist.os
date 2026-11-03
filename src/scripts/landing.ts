@@ -1,7 +1,142 @@
-import { initCopy } from "./copy";
-import { initReveal } from "./reveal";
+// Hero canvas animation for animated gradient and blob effects
+function initHeroCanvas(): void {
+  const canvas = document.querySelector<HTMLCanvasElement>(".hero-canvas");
+  if (!canvas) return;
 
-const wait = (ms: number) => new Promise((resolve) => window.setTimeout(resolve, ms));
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return;
+
+  // Set canvas size
+  const updateCanvasSize = () => {
+    const rect = canvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.scale(dpr, dpr);
+    canvas.style.width = `${rect.width}px`;
+    canvas.style.height = `${rect.height}px`;
+  };
+
+  updateCanvasSize();
+  window.addEventListener("resize", updateCanvasSize);
+
+  // Handle reduced motion
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Animation state
+  let animationId: number | undefined;
+  let time = 0;
+
+  // Blob configuration
+  const blobs = [
+    { x: 0.3, y: 0.2, w: 0.6, h: 0.4, dx: 0.02, dy: -0.01, r: 120, opacity: 0.15 },
+    { x: 0.7, y: 0.6, w: 0.5, h: 0.5, dx: -0.015, dy: 0.02, r: 80, opacity: 0.1 },
+    { x: 0.1, y: 0.8, w: 0.4, h: 0.3, dx: 0.01, dy: 0.015, r: 100, opacity: 0.12 },
+  ];
+
+  const animate = () => {
+    if (reduced) return;
+
+    time += 0.005;
+
+    ctx.clearRect(0, 0, canvas.width / (window.devicePixelRatio || 1), canvas.height / (window.devicePixelRatio || 1));
+
+    blobs.forEach((blob, index) => {
+      blob.x += blob.dx;
+      blob.y += blob.dy;
+
+      // Bounce off edges
+      if (blob.x < 0.05 || blob.x > 0.95) blob.dx *= -1;
+      if (blob.y < 0.05 || blob.y > 0.95) blob.dy *= -1;
+
+      const centerX = blob.x * canvas.width / (window.devicePixelRatio || 1);
+      const centerY = blob.y * canvas.height / (window.devicePixelRatio || 1);
+      const radius = blob.r + Math.sin(time * 0.001 + index * 2) * 20;
+
+      // Create gradient
+      const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, radius);
+      gradient.addColorStop(0, `rgba(94, 234, 212, ${blob.opacity})`);
+      gradient.addColorStop(1, `rgba(94, 234, 212, 0)`);
+
+      ctx.beginPath();
+      ctx.fillStyle = gradient;
+      ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    // Add animated mesh lines
+    ctx.strokeStyle = "rgba(94, 234, 212, 0.05)";
+    ctx.lineWidth = 1;
+
+    const lines = 8;
+    for (let i = 0; i < lines; i++) {
+      const y = (i * canvas.height / (window.devicePixelRatio || 1) / lines) + Math.sin(time * 0.001 + i) * 20;
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(canvas.width / (window.devicePixelRatio || 1), y);
+      ctx.stroke();
+
+      const x = (i * canvas.width / (window.devicePixelRatio || 1) / lines) + Math.cos(time * 0.001 + i) * 20;
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, canvas.height / (window.devicePixelRatio || 1));
+      ctx.stroke();
+    }
+
+    animationId = requestAnimationFrame(animate);
+  };
+
+  // Start animation unless reduced motion
+  if (!reduced) {
+    animate();
+  }
+
+  // Add hover interaction
+  const heroSection = canvas.closest<HTMLElement>(".hero-wash");
+  if (heroSection) {
+    heroSection.addEventListener("mouseenter", () => {
+      if (!reduced) {
+        stopAnimation();
+      }
+    });
+
+    heroSection.addEventListener("mouseleave", () => {
+      if (!reduced && animationId === undefined) {
+        animate();
+      }
+    });
+
+    const stopAnimation = () => {
+      if (animationId !== undefined) {
+        cancelAnimationFrame(animationId);
+        animationId = undefined;
+      }
+    };
+  }
+}
+
+function initCopy(): void {
+  const strips = Array.from(document.querySelectorAll<HTMLElement>(".code-strip"));
+
+  strips.forEach((strip) => {
+    const button = strip.querySelector<HTMLButtonElement>("[data-copy]");
+    if (!button) return;
+
+    button.addEventListener("click", async () => {
+      const source = strip.querySelector<HTMLElement>("[data-copy-source]");
+      if (!source) return;
+
+      await navigator.clipboard.writeText(source.textContent || "");
+
+      const originalLabel = button.textContent || "";
+      button.textContent = "Copied";
+
+      window.setTimeout(() => {
+        button.textContent = originalLabel;
+      }, 1600);
+    });
+  });
+}
 
 function initMenu(): void {
   const button = document.querySelector<HTMLButtonElement>("[data-menu-open]");
@@ -280,13 +415,51 @@ function initSearch(): void {
   });
 }
 
+function initHotspots(): void {
+  const hotspots = Array.from(document.querySelectorAll<SVGCircleElement>(".hotspot"));
+  if (!hotspots.length) return;
+
+  hotspots.forEach((hotspot) => {
+    const label = hotspot.dataset.label ?? "";
+    const parent = hotspot.closest<SVGGElement>("[data-step]") ?? hotspot.closest<SVGGElement>("[data-arch]");
+    const tooltip = document.createElement("div");
+    tooltip.className = "hotspot-tooltip";
+    tooltip.textContent = label;
+    tooltip.style.cssText = "position:fixed;pointer-events:none;opacity:0;transition:opacity 120ms ease;z-index:9999;background:var(--color-ink);color:var(--color-paper);font-size:11px;padding:6px 10px;border-radius:8px;white-space:nowrap;transform:translate(-50%,-130%);";
+
+    hotspot.addEventListener("mouseenter", () => {
+      hotspot.setAttribute("stroke-opacity", "0.8");
+      document.body.appendChild(tooltip);
+      requestAnimationFrame(() => {
+        const rect = hotspot.getBoundingClientRect();
+        tooltip.style.left = `${rect.left + rect.width / 2}px`;
+        tooltip.style.top = `${rect.top}px`;
+        tooltip.style.opacity = "1";
+      });
+    });
+
+    hotspot.addEventListener("mouseleave", () => {
+      hotspot.setAttribute("stroke-opacity", "0");
+      tooltip.style.opacity = "0";
+      window.setTimeout(() => tooltip.remove(), 120);
+    });
+
+    hotspot.addEventListener("mousemove", (event) => {
+      tooltip.style.left = `${event.clientX}px`;
+      tooltip.style.top = `${event.clientY - 24}px`;
+    });
+  });
+}
+
 export function initLanding(): void {
   initMenu();
   initReveal();
+  initHeroCanvas();
   initLoop();
   initTtl();
   initMergeGate();
   initArch();
+  initHotspots();
   initCopy();
   initSearch();
 }
