@@ -1,0 +1,36 @@
+---
+import { marketing } from "../../content/marketing";
+const base = import.meta.env.BASE_URL;
+---
+
+<header class="bg-ink">
+  <div class="shell flex h-20 items-center justify-between gap-6">
+    <a href={`${base}/`} class="flex items-center gap-3 text-base font-semibold tracking-tight" aria-label="exist.io home">
+      <span class="grid size-8 place-items-center rounded-md bg-signal text-signal-ink">e</span>
+      exist.io
+    </a>
+
+    <nav class="hidden items-center gap-8 md:flex" aria-label="Main">
+      {marketing.nav.links.map((link) => (
+        <a class="small transition-colors hover:text-fg" href={link.href}>{link.label}</a>
+      ))}
+    </nav>
+
+    <div class="flex items-center gap-5">
+      <a class="small hidden transition-colors hover:text-fg sm:block" href={marketing.nav.github}>{marketing.nav.githubLabel}</a>
+      <a class="btn btn-primary h-10 px-5 text-sm" href="#quickstart">{marketing.nav.installLabel}</a>
+    </div>
+  </div>
+
+  <details class="shell pb-5 md:hidden">
+    <summary class="small flex cursor-pointer list-none items-center gap-2">
+      Menu <span class="text-fg-3">+</span>
+    </summary>
+    <nav class="mt-4 flex flex-col gap-3" aria-label="Mobile">
+      {marketing.nav.links.map((link) => (
+        <a class="small transition-colors hover:text-fg" href={link.href}>{link.label}</a>
+      ))}
+      <a class="small transition-colors hover:text-fg" href={marketing.nav.github}>{marketing.nav.githubLabel}</a>
+    </nav>
+  </details>
+</header>

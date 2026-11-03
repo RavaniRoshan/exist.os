@@ -3,27 +3,31 @@ import { readFileSync } from "node:fs";
 const html = readFileSync(new URL("../dist/index.html", import.meta.url), "utf8");
 
 const required = [
-  ["35 MCP tools", "MCP tool count (internal/mcp/tools.go)"],
-  ["35 tools", "MCP tool count, diagram variant"],
-  ["119 REST operations", "REST op count"],
-  ["137 frontend tests", "Vitest test count"],
-  ["25 Go packages", "Go package count"],
-  ["CGO_ENABLED=0", "pure-Go invariant"],
+  ["v0.6.0-beta", "current release"],
+  ["Your own Git forge.", "hero headline"],
+  ["Built for agents.", "hero lead"],
+  ["install.sh | bash", "install command"],
+  ["existd bootstrap --email admin@corp.exist.io", "bootstrap command"],
   [":2222", "SSH port"],
   [":8080", "HTTP port"],
-  ["Apache-2.0 / MIT dual licensed", "license"],
-  ["Phase 6 next", "roadmap honesty"],
-  ["The self-hosted forge for the age of coding agents.", "hero headline"],
-  ["existd bootstrap --email &lt;you@example.com&gt; --namespace &lt;org&gt;", "setup prompt"],
+  ["Apache-2.0", "license"],
+  ["refs/heads/agent/*", "lease isolation"],
 ];
 
 const forbidden = [
-  ["34 MCP", "stale tool count"],
-  ["34 tools", "stale tool count"],
+  ["35 MCP", "stale tool count"],
+  ["35 tools", "stale tool count"],
+  ["119 REST", "stale operation count"],
+  ["137 frontend", "stale test count"],
+  ["25 Go packages", "stale package count"],
+  ["Primer", "stale design language"],
+  ["enterprise-ready", "unverified enterprise claim"],
+  ["wire-compatible", "unverified compatibility claim"],
+  ["Space UI", "stale design language"],
+  [":3000", "stale Web UI port"],
   ["TODO", "placeholder"],
   ["TBD", "placeholder"],
   ["Lorem", "placeholder"],
-  ["world's fastest", "unearned PlanetScale-style claim"],
 ];
 
 let failed = false;

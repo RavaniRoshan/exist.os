@@ -1,0 +1,76 @@
+---
+import { marketing } from "../../content/marketing";
+const { lease, gate, stack } = marketing;
+
+interface Props {
+  feature: (typeof marketing.features)[number];
+  index: number;
+}
+
+const { feature, index } = Astro.props;
+const reversed = index % 2 === 1;
+---
+
+<section id={feature.id} class:list={["py-20 md:py-28", reversed && "bg-surface/40"]}>
+  <div class="shell grid items-center gap-12 md:grid-cols-2 md:gap-16">
+    <div class:list={[reversed && "md:order-2"]} data-reveal>
+      <h2 class="heading">{feature.title}</h2>
+      <p class="body mt-4">{feature.body}</p>
+      <ul class="body mt-6 list-disc space-y-2 pl-5 marker:text-signal">
+        {feature.points.map((point) => (
+          <li>{point}</li>
+        ))}
+      </ul>
+    </div>
+
+    <div
+      class:list={[feature.tone, "media-field flex min-h-[360px] items-center", reversed && "md:order-1"]}
+      data-ui
+      data-reveal
+    >
+      {feature.media === "lease" && (
+        <div class="w-full">
+          <pre class="overflow-x-auto text-sm leading-relaxed text-fg"><code>{lease.code}</code></pre>
+          <p class="mt-4 text-sm text-fg-2">
+            token <code class="text-signal">{lease.token}</code>
+          </p>
+        </div>
+      )}
+
+      {feature.media === "gate" && (
+        <div class="w-full" data-merge-gate>
+          <p class="text-base font-semibold">Merge gate</p>
+          <div class="mt-4 space-y-3">
+            {gate.rows.map((row) => (
+              <label class="flex items-center gap-3 text-sm text-fg-2">
+                <input type="checkbox" checked data-gate class="size-4 accent-[var(--color-signal)]" />
+                {row}
+              </label>
+            ))}
+          </div>
+          <button
+            type="button"
+            data-merge-button
+            class="btn btn-primary mt-5 h-10 px-4 text-sm disabled:pointer-events-none disabled:opacity-40"
+          >
+            {gate.enabled}
+          </button>
+          <p class="mt-3 text-sm text-fg-2" data-merge-status data-ready={gate.ready} data-blocked={gate.blocked}>
+            {gate.ready}
+          </p>
+        </div>
+      )}
+
+      {feature.media === "stack" && (
+        <div class="flex w-full flex-col gap-3">
+          {stack.layers.map((layer) => (
+            <div class="bg-surface px-5 py-4">
+              <p class="text-base font-semibold">{layer.label}</p>
+              <p class="mt-1 text-sm text-fg-2">{layer.detail}</p>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+</section>

@@ -1,9 +1,14 @@
 ---
+import "@fontsource-variable/inter";
+import "@fontsource-variable/jetbrains-mono";
+import "../styles/global.css";
+
 interface Props {
   title: string;
   description: string;
 }
 const { title, description } = Astro.props;
+const base = import.meta.env.BASE_URL;
 const siteUrl = "https://ravaniroshan.github.io/exist.os/";
 const ogImage = `${siteUrl}og-exist-os.png`;
 ---
@@ -15,7 +20,7 @@ const ogImage = `${siteUrl}og-exist-os.png`;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href={`${base}/favicon.svg`} type="image/svg+xml" />
     <link rel="canonical" href={siteUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -25,20 +30,13 @@ const ogImage = `${siteUrl}og-exist-os.png`;
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="exist.io — the self-hosted forge for the age of coding agents" />
+    <meta property="og:image:alt" content="exist.io — the self-hosted Git forge built for coding agents" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
-    <script is:inline>
-      // no-flash theme: apply persisted choice before first paint
-      try {
-        var t = localStorage.getItem("exist-theme");
-        if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
-      } catch (e) {}
-    </script>
   </head>
-  <body class="bg-canvas text-text-primary font-mono">
+  <body class="bg-ink text-fg font-sans antialiased">
     <slot />
   </body>
 </html>
